@@ -1,6 +1,6 @@
 {
   "development": {
-    "storage": "menuitem.db",
+    "storage": "menuitems.db",
     "dialect": "sqlite"
   },
   "production": {

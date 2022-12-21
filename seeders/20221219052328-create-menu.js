@@ -81,6 +81,7 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert('MenuItems', menuitem)
+
   },
 
   async down(queryInterface, Sequelize) {
@@ -93,3 +94,6 @@ module.exports = {
      await queryInterface.bulkDelete('MenuItems')
   },
 };
+
+
+
