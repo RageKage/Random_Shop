@@ -1,9 +1,9 @@
-'use strict';
-const { DATEONLY } = require('sequelize');
+"use strict";
+const { DATEONLY } = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('MenuItems', {
+    await queryInterface.createTable("MenuItems", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,6 +18,10 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       description: {
         type: Sequelize.TEXT,
         allowNull: false,
@@ -25,16 +29,16 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
+        defaultValue: new Date(),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
-      }
+        defaultValue: new Date(),
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('MenuItems');
-  }
+    await queryInterface.dropTable("MenuItems");
+  },
 };
