@@ -112,7 +112,7 @@ export default {
     const previousOrders = ref([]);
     const ItemStore = useItemStore();
 
-    const totalPrice = computed(() => {
+    const totalPrice = computed(() => { // a computed property that returns the total price of the items in cart
       let total = 0;
       for (const item of ItemStore.data.selectedItem) {
         total += item.price * item.quantity;
@@ -121,22 +121,22 @@ export default {
     });
 
     function calculateTotalPrice(item) {
-      return (item.price * item.quantity).toFixed(2);
+      return (item.price * item.quantity).toFixed(2); // the calculated price of every item
     }
 
-    const remove = (item) => {
-      const index = ItemStore.data.selectedItem.indexOf(item);
-      ItemStore.data.selectedItem.splice(index, 1);
-    };
+    const remove = ItemStore.remove
+
+
+
 
     function Notify() {
       for (const item of this.ItemStore.data.selectedItem) {
-        this.previousOrders.push(item);
+        this.previousOrders.push(item); // this will store the previous order in a list
       }
       // clear the current order
       this.ItemStore.data.selectedItem = [];
-      this.ItemStore.data.itemsInBasket = 0;
-      return Swal.fire({
+      this.ItemStore.data.itemsInBasket = 0; 
+      return Swal.fire({ 
         text: "Thank you for placing an Order",
         icon: "success",
         confirmButtonText: "Great",

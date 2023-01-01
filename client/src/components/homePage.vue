@@ -44,18 +44,18 @@ export default {
     const ItemsStore = useItemStore();
 
     onMounted(() => {
-      ItemsStore.fetchMenuData();
+      ItemsStore.fetchMenuData(); 
     });
 
     function AddQuantity(item, quantity) {
-      ItemsStore.increaseQuantity(quantity, item);
+      ItemsStore.increaseQuantity(quantity, item); // this will add quantity 
     }
     function SubtractQuantity(item, quantity) {
-      ItemsStore.decreaseQuantity(quantity, item);
+      ItemsStore.decreaseQuantity(quantity, item); // this will decrease quantity
     }
 
     function addItemToSelected(itemName, quantity) {
-      ItemsStore.selectItem(itemName, quantity);
+      ItemsStore.selectItem(itemName, quantity); // this will add item to selected so it can be shown in the checkout page
     }
 
     return {

@@ -19,7 +19,7 @@ export const useItemStore = defineStore("ItemStore", () => {
   });
 
   const fetchMenuData = () => {
-    service.Allmenuitems().then((menu) => (data.menuItem = menu));
+    service.Allmenuitems().then((menu) => (data.menuItem = menu)); // get all menu items and store them in data.menuItem
   };
 
   const increaseQuantity = (quantity, item) => {
@@ -38,13 +38,17 @@ export const useItemStore = defineStore("ItemStore", () => {
   // TODO: make sure the quanity is not over 15 items and if it is don't add it to the array and use the Swal
   //TODO: code from the client side to show the alert
   const selectItem = (itemName, quantity) => {
-    const index = data.selectedItem.findIndex((item) => item.name === itemName);
+    const index = data.selectedItem.findIndex((item) => item.name === itemName); // this wil
+    console.log(index);
     if (index === -1) {
+      // If the item is not in the array, get the item from the server and add it to the array
       service.getOneItem(itemName).then((item) => {
         item.quantity = quantity;
         data.selectedItem.push(item);
       });
     } else {
+      // If the item is already in the array, increase the quantity by 1
+
       if (data.selectedItem[index].quantity + quantity > 15) {
         return alert("sorry but the maximum is 15");
       } else {
@@ -62,15 +66,23 @@ export const useItemStore = defineStore("ItemStore", () => {
     // (ItemValue) => {
     //   localStorage.setItem("Items", JSON.stringify(ItemValue));
     // },
-    // { deep: true }
+    { deep: true }
   );
 
   if (localStorage.getItem("selectedItem")) {
     data.selectedItem = JSON.parse(localStorage.getItem("selectedItem")); // use the localStorage.getItem if the user is not new
+    console.log(data.selectedItem);
   }
-//   if (localStorage.getItem("Items")) {
-//     data.menuItem = JSON.parse(localStorage.getItem("Items"));
-//   }
+  //   if (localStorage.getItem("Items")) {
+  //     data.menuItem = JSON.parse(localStorage.getItem("Items"));
+  //   }
+
+  const remove = (item) => {
+    // this will remove the item from store
+    const index = data.selectedItem.indexOf(item); // Find the index of the item in the selectedItem array
+    data.selectedItem.splice(index, 1); // Remove the item from the array
+    localStorage.setItem("selectedItem", JSON.stringify(data.selectedItem)); // save the selectedItem in localStorage
+  };
 
   return {
     data,
@@ -78,6 +90,6 @@ export const useItemStore = defineStore("ItemStore", () => {
     increaseQuantity,
     decreaseQuantity,
     selectItem,
-    // NumberofItems
+    remove,
   };
 });

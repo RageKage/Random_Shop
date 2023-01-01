@@ -56,7 +56,7 @@ export default {
         total.value++;
         itemsInCart.value++;
         props.item.quantity = total.value;
-        emit("incrementQuantity", props.item.name, props.item.quantity);
+        emit("incrementQuantity", props.item.name, props.item.quantity); // this will emit the item name and quantity to the parent
       }
       // emit("addToSelected", props.item.name);
     }
@@ -67,7 +67,7 @@ export default {
         itemsInCart.value--;
         props.item.quantity = total.value;
       }
-      emit("decrementQuantity", props.item.name, props.item.quantity);
+      emit("decrementQuantity", props.item.name, props.item.quantity); 
       // emit("addToSelected", props.item.name);
     }
 
