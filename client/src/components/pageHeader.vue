@@ -1,38 +1,54 @@
 <template>
   <div class="navs">
     <router-link class="nav-link" to="/">Home</router-link>
-    <router-link class="nav-link" to="/Checkout">CheckOut
+    <router-link class="nav-link" to="/Checkout"
+      >CheckOut ({{ NumOfItems }})
       <!-- <img src="@/assets/checkout.png" alt="" /> -->
     </router-link>
   </div>
 </template>
 
-<script></script>
+<script>
+import { useItemStore } from "../Stores/Items";
+import { onMounted, ref, computed } from "@vue/runtime-core";
+
+export default {
+  name: "Navs",
+  setup() {
+    const ItemsStore = useItemStore();
+
+    // a computed property that returns the length of the selectedItem array
+    const NumOfItems = computed(() => ItemsStore.data.selectedItem.length);
+
+    return {
+      NumOfItems,
+    };
+  },
+};
+</script>
+
 <style>
 .navs {
-  /* other styles */
-  background-color: #000000; /* change the background color to black */
-  height: 50px; /* reduce the height to 50px */
-  /* border-radius: 1rem; */
+  background-color: #000000;
+  height: 50px;
 }
 
 .nav-link {
-  /* other styles */
-  color: #ffffff; /* change the text color to white */
-  font-size: 1rem; /* reduce the font size */
+  color: #ffffff;
+  font-size: 1rem;
   text-decoration: none;
   margin: 0 20px;
-  padding: 0 20px; 
+  padding: 0 20px;
 }
 
 .nav-link:hover {
-  background-color: #cccccc; /* change the hover color to grey */
+  background-color: #cccccc;
   border-radius: 1rem;
 }
 
 .router-link-exact-active {
   /* other styles */
-  background-color: #cccccc; /* change the active link color to grey */
+  background-color: #cccccc;
   border-radius: 1rem;
 }
 
@@ -43,15 +59,13 @@
 }
 
 .navs {
-  /* other styles */
   background-color: var(--primary-color);
-  height: 30px;
+  height: 40px;
   border-radius: 1rem;
-  padding-top: 5px;
+  padding-top: 20px;
 }
 
 .nav-link {
-  /* other styles */
   color: var(--text-color);
   font-size: 1rem;
 }
@@ -62,7 +76,6 @@
 }
 
 .router-link-exact-active {
-  /* other styles */
   background-color: var(--secondary-color);
 }
 </style>

@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="box">
+      <!-- <div class="wave -one"></div>
+      <div class="wave -two"></div>
+      <div class="wave -three"></div> -->
+    </div>
     <pageHeader></pageHeader>
     <router-view></router-view>
     <pageFooter></pageFooter>
@@ -29,7 +34,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   /* background-color: aquamarine; */
-  /* margin-top: 60px; */
 }
-/* add a moving background */
+
+
+
+
 </style>

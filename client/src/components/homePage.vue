@@ -3,27 +3,34 @@
     <div class="container">
       <MenuData
         class="card"
-        v-for="item in data.menuItem"
+        v-for="item in ItemsStore.data.menuItem"
         v-bind:key="item.id"
         :item="item"
-        v-on:incrementQuantity="increaseQuantity"
-        v-on:decrementQuantity="decreaseQuantity"
+        v-on:increment-Quantity="AddQuantity"
+        v-on:decrement-Quantity="SubtractQuantity"
         v-on:addToSelected="addItemToSelected"
       />
     </div>
-    <Checkout
-      v-for="selected in data.selectedItem"
-      :key="selected.id"
-      v-bind:ItemSelected="selected"
-    />
+    <!-- {{ItemsStore.data.selectedItem }} -->
+    <!-- v-on:decrease="decreaseQuantity" -->
+
+    <!-- <div>{{ItemsStore.data}}</div> -->
+
+    <!-- <div v-for="selected in data.selectedItem" :key="selected.id"> -->
+    <!-- <Checkout v-bind:selectedItem="selected" /> 
+      v-on:addToSelected="addItemToSelected"
+      -->
+
+    <!-- {{ data.selectedItem }} -->
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
-import { onMounted, reactive } from "vue";
-import { getCurrentInstance } from "vue";
 import MenuData from "./menuData.vue";
 import Checkout from "./Checkout.vue";
+import { useItemStore } from "../Stores/Items";
+import { onMounted } from "@vue/runtime-core";
 
 // TODO: set up props for the checkout and display all that is selected on there
 // TODO: setup a request to the server to get only the current selected items and then add the Checkout component
@@ -34,50 +41,32 @@ export default {
     Checkout,
   },
   setup() {
-    const service = useService();
-    function useService() {
-      const ctx = getCurrentInstance();
-      return ctx.appContext.config.globalProperties.$Service;
-    }
-    const data = reactive({
-      menuItem: [],
-      selectedItem: [],
-    });
+    const ItemsStore = useItemStore();
 
     onMounted(() => {
-      fetchMenuData();
+      ItemsStore.fetchMenuData();
     });
 
-    function fetchMenuData() {
-      service.Allmenuitems().then((menu) => (data.menuItem = menu));
+    function AddQuantity(item, quantity) {
+      ItemsStore.increaseQuantity(quantity, item);
+    }
+    function SubtractQuantity(item, quantity) {
+      ItemsStore.decreaseQuantity(quantity, item);
     }
 
-    function increaseQuantity(item, quantity) {
-      service.updateQuantity(quantity, item).then(() => {
-        fetchMenuData();
-      });
-    }
-
-    function decreaseQuantity(item, quantity) {
-      service.updateQuantity(quantity, item).then(() => {
-        fetchMenuData();
-      });
-    }
-
-    function addItemToSelected(itemName) {
-      service
-        .getOneItem(itemName)
-        .then((item) => data.selectedItem.push(item), fetchMenuData());
+    function addItemToSelected(itemName, quantity) {
+      ItemsStore.selectItem(itemName, quantity);
     }
 
     return {
-      fetchMenuData,
+      ItemsStore,
       onMounted,
-      data,
-      useService,
-      increaseQuantity,
-      decreaseQuantity,
+      SubtractQuantity,
+      AddQuantity,
       addItemToSelected,
+      // decrease,
+      // ItemsStore
+      // addItemToSelected,
     };
   },
 };
@@ -98,7 +87,6 @@ export default {
   padding: 10px;
   margin: 1rem;
   transition: all 0.3s ease-in-out;
-
 }
 
 .card:hover {
@@ -155,13 +143,9 @@ export default {
   font-size: 24px;
 }
 
-
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-
-
-
 </style>

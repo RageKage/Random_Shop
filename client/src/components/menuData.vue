@@ -2,22 +2,25 @@
   <div>
     <div>{{ item.name }}</div>
     <div>{{ item.description }}</div>
-    <!-- make this a child so it updates the number of quantity -->
     <div>${{ item.price }}</div>
     <div>{{ item.quantity }}</div>
 
     <div class="contain">
       <button @click="incrementQuantity" class="add-button">+</button>
-      <p class="count" v-show="showAlert">quantity: {{ total }}</p>
       <button @click="decrementQuantity" class="remove-button">-</button>
     </div>
     <div>
-      <button @click="addToOrder">Add to order</button>
+      <button @click="addToOrder">Add to order ({{ itemsInCart }})</button>
     </div>
   </div>
 </template>
 
 <script>
+import Vue, { watch } from "vue";
+import { useItemStore } from "../Stores/Items";
+// TODO: fix this issue quantity = 3 order button is clicked and then the order name and quainity is shown in the checkout page
+// TODO back to the homepage the quantity = 1 and then quantity is updated to quantity = 2 order button is clicked and the checkout page is updated but it only added by one instead of 2
+// TODO so instead of being 5 it is only 4 meaning that something is wrong with your add to order emit message or the add more button
 import {
   set,
   ref,
@@ -26,84 +29,97 @@ import {
   reactive,
   getCurrentInstance,
 } from "vue";
+import Swal from "sweetalert2";
 
 export default {
+  emits: ["decrement-Quantity", "increment-Quantity", "addToSelected"],
   props: {
     item: Object,
   },
   setup(props, { emit }) {
-    let data = reactive({
-      selectedItem: {},
-    });
+    const ItemStore = useItemStore();
 
     let total = ref(props.item.quantity);
-    let showAlert = ref(false);
-    const selectedItemRef = ref(data.selectedItem);
+
     let count = ref(0);
 
+    let itemsInCart = ref(props.item.quantity);
+
     function incrementQuantity() {
-      // showAlert.value = true; this will show the amount of that is being added to the order item
       if (total.value >= 15) {
         alert(
           `Sorry, but the maximum amount you can order is 15 of ${props.item.name}`
         );
+
         return;
+      } else {
+        total.value++;
+        itemsInCart.value++;
+        props.item.quantity = total.value;
+        emit("incrementQuantity", props.item.name, props.item.quantity);
       }
-      total.value++;
-      props.item.quantity = total.value;
-      emit("incrementQuantity", props.item.name, props.item.quantity);
+      // emit("addToSelected", props.item.name);
     }
 
     function decrementQuantity() {
       if (total.value > 0) {
         total.value--;
+        itemsInCart.value--;
         props.item.quantity = total.value;
       }
       emit("decrementQuantity", props.item.name, props.item.quantity);
+      // emit("addToSelected", props.item.name);
     }
 
     function addToOrder() {
-      emit("addToSelected", props.item.name);
+      if (props.item.quantity <= 0) {
+        total.value = 1;
+        props.item.quantity = total.value;
+        itemsInCart.value = total.value;
+        emit("incrementQuantity", props.item.name, props.item.quantity); // emit it back to the database so it doesn't just remain zero
+        return Swal.fire({
+          text:
+            "the Quantity is zero on " +
+            props.item.name +
+            " there for it can't be added to the order",
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
+      }
+
+      if (props.item.quantity >= 14) {
+        return Swal.fire({
+          text: "The maximum you can order for " + props.item.name + " 15",
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
+      }
+
+      // console.log(props.item.name +'    ' +props.item.quantity)
+
+      emit("addToSelected", props.item.name, props.item.quantity);
+      // console.log(props.item.name +'    ' +props.item.quantity)
+
+      total.value = 1;
+      props.item.quantity = total.value;
+      itemsInCart.value = total.value;
+
+      // console.log(total.value + " " + props.item.quantity);
+      emit("incrementQuantity", props.item.name, props.item.quantity);
+      emit("decrementQuantity", props.item.name, props.item.quantity);
     }
 
     return {
       incrementQuantity,
       decrementQuantity,
       total,
-      showAlert,
       addToOrder,
       count,
-      data,
-      selectedItemRef,
+      ItemStore,
+      itemsInCart,
     };
   },
 };
 </script>
 
-<style>
-/* .contain {
-  display: block;
-  align-items: center;
-}
-
-.add-button,
-.remove-button {
-  width: 30px;
-  height: 30px;
-  font-size: 24px;
-  border: none;
-  border-radius: 50%;
-  background-color: #333;
-  color: rgb(255, 255, 255);
-}
-
-.add-button:hover,
-.remove-button:hover {
-  background-color: rgb(155, 151, 151);
-}
-
-.count {
-  margin: 0 10px;
-  font-size: 24px;
-} */
-</style>
+<style></style>
