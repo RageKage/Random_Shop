@@ -11,18 +11,6 @@
         v-on:addToSelected="addItemToSelected"
       />
     </div>
-    <!-- {{ItemsStore.data.selectedItem }} -->
-    <!-- v-on:decrease="decreaseQuantity" -->
-
-    <!-- <div>{{ItemsStore.data}}</div> -->
-
-    <!-- <div v-for="selected in data.selectedItem" :key="selected.id"> -->
-    <!-- <Checkout v-bind:selectedItem="selected" /> 
-      v-on:addToSelected="addItemToSelected"
-      -->
-
-    <!-- {{ data.selectedItem }} -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -44,11 +32,11 @@ export default {
     const ItemsStore = useItemStore();
 
     onMounted(() => {
-      ItemsStore.fetchMenuData(); 
+      ItemsStore.fetchMenuData();
     });
 
     function AddQuantity(item, quantity) {
-      ItemsStore.increaseQuantity(quantity, item); // this will add quantity 
+      ItemsStore.increaseQuantity(quantity, item); // this will add quantity
     }
     function SubtractQuantity(item, quantity) {
       ItemsStore.decreaseQuantity(quantity, item); // this will decrease quantity
@@ -83,7 +71,6 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-
   padding: 10px;
   margin: 1rem;
   transition: all 0.3s ease-in-out;
@@ -91,7 +78,9 @@ export default {
 
 .card:hover {
   transform: scale(1.05);
+  background-color: #e6f3ff;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .card div:first-child {
@@ -113,7 +102,7 @@ export default {
 .card div:last-child {
   font-size: 16px;
   font-weight: bold;
-  color: #e74c3c;
+  /* color: #e74c3c; */
 }
 
 .card .contain {
@@ -123,19 +112,27 @@ export default {
 
 .card .add-button,
 .card .remove-button {
-  width: 30px;
-  height: 30px;
-  font-size: 24px;
+  width: 40px;
+  height: 25px;
+  font-size: 18px;
   border: none;
-  border-radius: 50%;
-  background-color: #333;
-  color: rgb(255, 255, 255);
+  /* border: 2px solid black; */
+  box-shadow: 5px 5px grey;
+  color: white;
   transition: all 0.3s ease-in-out;
+  background-color: lightblue;
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 2rem;
 }
 
 .card .add-button:hover,
 .card .remove-button:hover {
-  background-color: rgb(155, 151, 151);
+  /* background-color: rgb(155, 151, 151); */
+  background-color: #43a6c6;
+  /* color: red; */
 }
 
 .card .count {

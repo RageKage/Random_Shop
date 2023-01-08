@@ -72,59 +72,72 @@ let menuitem = [
       "A sweet treat to end your meal, such as cake, pie, or ice cream.",
   },
   {
-    name: 'Cake',
+    name: "Cake",
     price: 7.99,
     quantity: 1,
-    description: 'A moist and fluffy cake with a rich and creamy frosting.'
+    description: "A moist and fluffy cake with a rich and creamy frosting.",
   },
   {
-    name: 'Hamburger',
+    name: "Hamburger",
     price: 5.99,
     quantity: 1,
-    description: 'A juicy hamburger patty served on a toasted bun with lettuce, tomato, and pickles.'
+    description:
+      "A juicy hamburger patty served on a toasted bun with lettuce, tomato, and pickles.",
   },
   {
-    name: 'Fried Chicken',
+    name: "Fried Chicken",
     price: 8.99,
     quantity: 1,
-    description: 'Crispy fried chicken served with a side of mashed potatoes and gravy.'
+    description:
+      "Crispy fried chicken served with a side of mashed potatoes and gravy.",
   },
   {
-    name: 'Nachos',
+    name: "Nachos",
     price: 6.99,
     quantity: 1,
-    description: 'A generous serving of tortilla chips topped with melted cheese, salsa, and jalapenos.'
+    description:
+      "A generous serving of tortilla chips topped with melted cheese, salsa, and jalapenos.",
   },
   {
-    name: 'Ice Cream',
+    name: "Ice Cream",
     price: 3.99,
     quantity: 1,
-    description: 'A scoop of creamy and refreshing ice cream in your choice of flavor.'
+    description:
+      "A scoop of creamy and refreshing ice cream in your choice of flavor.",
   },
   {
-    name: 'Taco',
+    name: "Taco",
     price: 2.99,
     quantity: 1,
-    description: 'A soft taco filled with your choice of meat, lettuce, tomato, cheese, and salsa.'
+    description:
+      "A soft taco filled with your choice of meat, lettuce, tomato, cheese, and salsa.",
   },
   {
-    name: 'Sushi',
-    price: 12.99,
-    quantity: 1,
-    description: 'A variety of fresh and flavorful sushi rolls, including tuna, salmon, and eel.'
-  },
-  {
-    name: 'Sandwich',
+    name: "Sandwich",
     price: 4.99,
     quantity: 1,
-    description: 'A hearty sandwich with your choice of meat, cheese, and vegetables on your choice of bread.'
+    description:
+      "A hearty sandwich with your choice of meat, cheese, and vegetables on your choice of bread.",
   },
   {
-    name: 'Donut',
+    name: "Donut",
     price: 1.99,
     quantity: 1,
-    description: 'A soft and sweet donut covered in your choice of glaze or powdered sugar.'
-  }
+    description:
+      "A soft and sweet donut covered in your choice of glaze or powdered sugar.",
+  },
+  {
+    name: "Fries",
+    price: 3.99,
+    quantity: 1,
+    description: "A large order of crispy fries.",
+  },
+  {
+    name: "Drink",
+    price: 1.99,
+    quantity: 1,
+    description: "Your choice of soft drink or bottled water.",
+  },
 ];
 
 /** @type {import('sequelize-cli').Migration} */
@@ -139,8 +152,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    await queryInterface.bulkInsert('MenuItems', menuitem)
-
+    await queryInterface.bulkInsert("MenuItems", menuitem);
   },
 
   async down(queryInterface, Sequelize) {
@@ -150,9 +162,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     await queryInterface.bulkDelete('MenuItems')
+    await queryInterface.bulkDelete("MenuItems");
   },
 };
-
-
-

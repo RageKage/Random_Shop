@@ -21,9 +21,14 @@
             class="row product"
           >
             <div class="name text-align-left">{{ item.name }}</div>
-            <div class="quantity text-align-left">{{ item.quantity }}</div>
+            <div class="quantity text-align-left">
+              {{ item.quantity }}
+              <!-- <button @click="decrementQuantity(item.quantity, item.name)">-</button>
+              {{ item.quantity }}
+              <button @click="incrementQuantity(item.quantity, item.name)">+</button> -->
+            </div>
             <div class="price text-align-left">
-              {{ calculateTotalPrice(item) }}
+              ${{ calculateTotalPrice(item) }}
               <div>
                 <!-- ${{ calculateTotalPrice(item) }} -->
                 <span class="price-label">${{ item.price }} for each</span>
@@ -54,37 +59,36 @@
       </div>
       <div class="creditcard-body panel-body">
         <button
-          @click="Notify"
-          class="text-align-center text-word-spacing-3 text-transform-uppercase text-shadow-2"
+          class="Confirm-Button"
+          @click="confirmOrder(ItemStore.data.selectedItem)"
         >
           Confirm Order
         </button>
-        <h1
-          class="text-align-center text-word-spacing-3 text-transform-uppercase text-shadow-2"
-        >
-          Add a previous order list
-        </h1>
+
+
         <div>
-          <div class="previous-orders">
+          <div>
             <h2>Previous Orders</h2>
-            <ul v-for="order in previousOrders" :key="order.id">
-              <li>{{ order.name }}</li>
-              <li>{{ order.quantity }}</li>
-              <li>{{ order.price }}</li>
-            </ul>
+          </div>
+          <div
+            class="previous-orders-table"
+            v-for="order in PreviousOrder"
+            :key="order.label"
+          >
+            <div>{{ order.label }}</div>
+            <!-- <div>{{ order.items }}</div> -->
+            <div v-for="item in order.items" :key="item.id">
+              <div class="previous-orders-cell">{{ item.name }}</div>
+              <div class="previous-orders-cell">
+                quantity: {{ item.quantity }}
+              </div>
+              <!-- <div>Total: ${{ orderTotal }}</div> -->
+              <span class="price-label">${{ item.price }} for each</span>
+            </div>
+
+            <div>Total: ${{ order.total }}</div> 
           </div>
         </div>
-        <h1
-          class="text-align-center text-word-spacing-3 text-transform-uppercase text-shadow-2"
-        >
-          Add a decrease quantity and increase quantity button so they make
-          changes on here instead
-        </h1>
-        <h1
-          class="text-align-center text-word-spacing-3 text-transform-uppercase text-shadow-2"
-        >
-          also make sure that the remove removes from the database,
-        </h1>
       </div>
     </div>
   </div>
@@ -109,10 +113,15 @@ import { useItemStore } from "../Stores/Items";
 
 export default {
   setup() {
-    const previousOrders = ref([]);
+    // const previousOrders = ref([]);
     const ItemStore = useItemStore();
 
-    const totalPrice = computed(() => { // a computed property that returns the total price of the items in cart
+    const PreviousOrder = ItemStore.data.SaveOrders;
+
+    // console.log(PreviousOrder);
+
+    const totalPrice = computed(() => {
+      // a computed property that returns the total price of the items in cart
       let total = 0;
       for (const item of ItemStore.data.selectedItem) {
         total += item.price * item.quantity;
@@ -120,28 +129,18 @@ export default {
       return total.toFixed(2);
     });
 
+
     function calculateTotalPrice(item) {
       return (item.price * item.quantity).toFixed(2); // the calculated price of every item
     }
 
-    const remove = ItemStore.remove
+    const remove = ItemStore.remove;
 
+    const incrementQuantity = ItemStore.increaseQuantity;
 
+    const decrementQuantity = ItemStore.decreaseQuantity;
 
-
-    function Notify() {
-      for (const item of this.ItemStore.data.selectedItem) {
-        this.previousOrders.push(item); // this will store the previous order in a list
-      }
-      // clear the current order
-      this.ItemStore.data.selectedItem = [];
-      this.ItemStore.data.itemsInBasket = 0; 
-      return Swal.fire({ 
-        text: "Thank you for placing an Order",
-        icon: "success",
-        confirmButtonText: "Great",
-      });
-    }
+    const confirmOrder = ItemStore.Notify;
 
     onMounted(() => {
       ItemStore;
@@ -153,8 +152,10 @@ export default {
       totalPrice,
       calculateTotalPrice,
       remove,
-      Notify,
-      previousOrders,
+      confirmOrder,
+      PreviousOrder,
+      incrementQuantity,
+      decrementQuantity,
     };
   },
 };
@@ -212,36 +213,48 @@ export default {
 }
 
 .price-label {
-  font-size: 0.8em;
+  font-size: 0.6em;
   color: #666;
 }
 
-.previous-orders {
-  width: 80%;
-  margin: 20px auto;
-}
-
-.previous-orders h2 {
-  text-align: center;
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-.previous-orders ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.previous-orders li {
-  display: flex;
-  justify-content: space-between;
+.Confirm-Button {
+  /* width: 40px; */
+  height: 30px;
+  font-size: 20px;
+  border: none;
+  border: 2px solid black;
+  box-shadow: 5px 5px gray;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  background-color: grey;
+  margin: 1rem;
+  justify-content: center;
   align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 2rem;
 }
 
-.previous-orders li:last-child {
-  border-bottom: none;
+.Confirm-Button:hover {
+  background-color: lightblue;
 }
+
+.previous-orders-table {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  /* align-items: center; */
+  /* justify-content: space-around; */
+  justify-content: space-between;
+
+  width: auto;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
 </style>

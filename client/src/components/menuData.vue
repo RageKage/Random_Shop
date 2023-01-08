@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <div>{{ item.name }}</div>
     <div>{{ item.description }}</div>
     <div>${{ item.price }}</div>
@@ -10,7 +10,7 @@
       <button @click="decrementQuantity" class="remove-button">-</button>
     </div>
     <div>
-      <button @click="addToOrder">Add to order ({{ itemsInCart }})</button>
+      <button @click="addToOrder" class="AddtoOrder">Add to order ({{ itemsInCart }})</button>
     </div>
   </div>
 </template>
@@ -122,4 +122,26 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.AddtoOrder {
+  cursor: pointer;
+    font-size: 0.9rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border: none;
+    box-shadow: 5px 5px grey;
+    color: rgb(255, 255, 255);
+    transition: all 0.3s ease-in-out;
+    background-color: lightblue;
+    margin: 1rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+}
+.AddtoOrder:hover {
+  /* cursor: pointer; */
+  background-color: #43A6C6
+}
+
+</style>
