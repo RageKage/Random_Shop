@@ -32,6 +32,6 @@ export default createRouter({
       path: "/:pathMatch(.*)*",
       name: "PageNotFound",
       component: ErrorPage,
-    }
+    },
   ],
 });

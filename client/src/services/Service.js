@@ -8,14 +8,14 @@ export default {
   },
   updateQuantity(Itemquantity, Itemname) {
     return axios
-      .patch("/api/menu/"+ Itemname , { quantity: Itemquantity })
+      .patch("/api/menu/" + Itemname, { quantity: Itemquantity })
       .then((res) => {
         return res.data;
       });
   },
   getOneItem(Itemname) {
     return axios.get("/api/menu/" + Itemname).then((res) => {
-        return res.data;
-      });
-  }
+      return res.data;
+    });
+  },
 };

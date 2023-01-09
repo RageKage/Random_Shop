@@ -1,22 +1,18 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
 
-import menu_Api_Service from '@/services/Service'
+import menu_Api_Service from "@/services/Service";
 
-import router from '@/router'
+import router from "@/router";
 
-import { createPinia } from 'pinia'
+import { createPinia } from "pinia";
 
+let app = createApp(App);
 
+app.config.globalProperties.$Service = menu_Api_Service;
 
-let app = createApp(App)
+app.use(createPinia());
 
-app.config.globalProperties.$Service = menu_Api_Service
+app.use(router);
 
-app.use(createPinia())
-
-app.use(router)
-
-
-
-app.mount('#app')
+app.mount("#app");

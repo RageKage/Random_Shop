@@ -19,7 +19,7 @@
             </div>
           </div>
 
-          <div class="E"> Total: ${{ order.total }} </div>
+          <div class="E">Total: ${{ order.total }}</div>
         </div>
       </div>
     </div>

@@ -10,15 +10,12 @@
   </div>
 </template>
 
-<script>
-
-
-</script>
+<script></script>
 
 <style scoped>
-  router-link.nav-link {
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 20px;
-  }
+router-link.nav-link {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 20px;
+}
 </style>

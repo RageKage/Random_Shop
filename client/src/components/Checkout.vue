@@ -104,8 +104,7 @@ export default {
       return total.toFixed(2);
     });
 
-    console.log(totalPrice)
-
+    console.log(totalPrice);
 
     function calculateTotalPrice(item) {
       return (item.price * item.quantity).toFixed(2); // the calculated price of every item
@@ -185,7 +184,7 @@ export default {
 }
 
 .remove-button:active {
-  transform: scale(.9);
+  transform: scale(0.9);
   box-shadow: 0 3px 15px -2px;
 }
 
@@ -220,8 +219,7 @@ export default {
   background-color: #43a6c6;
 }
 .Confirm-Button:active {
-  transform: scale(.9);
+  transform: scale(0.9);
   box-shadow: 0 3px 15px -2px;
 }
-
 </style>

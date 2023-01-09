@@ -1,7 +1,7 @@
 <template>
   <div class="page-not-found">
     <h1>Page not Found</h1>
-    <br>
+    <br />
     <h1>ERROR - 404</h1>
   </div>
 </template>

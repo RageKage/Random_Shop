@@ -59,14 +59,13 @@ export default {
         });
       } else {
         // console.log(15 - total.value)
-        
+
         total.value++;
         itemsInCart.value++;
         props.item.quantity = total.value;
         // console.log(total)
         emit("incrementQuantity", props.item.name, props.item.quantity); // this will emit the item name and quantity to the parent
       }
-
     }
 
     function decrementQuantity() {
@@ -155,7 +154,7 @@ export default {
 }
 
 .AddtoOrder:active {
-  transform: scale(.9);
+  transform: scale(0.9);
   box-shadow: 0 3px 15px -2px;
 }
 </style>
