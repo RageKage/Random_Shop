@@ -62,7 +62,13 @@ export const useItemStore = defineStore("ItemStore", () => {
       // If the item is already in the array, increase the quantity by 1
 
       if (data.selectedItem[index].quantity + quantity > 15) {
-        return alert("sorry but the maximum is 15");
+        return Swal.fire({
+          text:
+            "I'm sorry, but the maximum allowable quantity for " +
+            props.item.name +
+            " is 15. Please reduce the quantity or choose a different item.",
+          icon: "info",
+        });
       } else {
         data.selectedItem[index].quantity += quantity;
         localStorage.setItem("selectedItem", JSON.stringify(data.selectedItem));
@@ -98,11 +104,22 @@ export const useItemStore = defineStore("ItemStore", () => {
   }
 
   const remove = (item) => {
-    // console.log(item);
-    // this will remove the item from store
-    const index = data.selectedItem.indexOf(item); // Find the index of the item in the selectedItem array
-    data.selectedItem.splice(index, 1); // Remove the item from the array
-    localStorage.setItem("selectedItem", JSON.stringify(data.selectedItem)); // save the selectedItem in localStorage
+    if (remove) {
+      Swal.fire({
+        text: `Are you sure you want to remove ${item.name} ?`,
+        icon: "warning",
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.value == true) {
+          const index = data.selectedItem.indexOf(item); // Find the index of the item in the selectedItem array
+          data.selectedItem.splice(index, 1); // Remove the item from the array
+          localStorage.setItem(
+            "selectedItem",
+            JSON.stringify(data.selectedItem)
+          );
+        }
+      });
+    }
   };
 
   const Notify = (item) => {
@@ -120,19 +137,24 @@ export const useItemStore = defineStore("ItemStore", () => {
 
       const savedOrder = JSON.parse(localStorage.getItem("SaveOrders")); // get the order from user's local storage
 
-      const orderTotal = computed(() => { // a computed property that returns the total amount for each order
+      const orderTotal = computed(() => {
+        // a computed property that returns the total amount for each order
         let total = 0;
         for (const order of savedOrder) {
           total += order.quantity * order.price;
         }
         return total.toFixed(2);
       });
-      console.log(orderTotal)
+      // console.log(orderTotal);
 
       const orderLabel = `Order ${data.SaveOrders.length + 1}`;
-      const newOrder = { label: orderLabel, items: savedOrder, total: orderTotal}; // create a object to store the order number and the items for the order
+      const newOrder = {
+        label: orderLabel,
+        items: savedOrder,
+        total: orderTotal,
+      }; // create a object to store the order number and the items for the order
 
-      console.log(newOrder);
+      // console.log(newOrder);
       data.SaveOrders.push(...[newOrder]); // push it to data.SaveOrders
 
       data.selectedItem = []; // reset the SelectedItem property back to its original value

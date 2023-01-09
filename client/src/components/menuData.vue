@@ -10,7 +10,9 @@
       <button @click="decrementQuantity" class="remove-button">-</button>
     </div>
     <div>
-      <button @click="addToOrder" class="AddtoOrder">Add to order ({{ itemsInCart }})</button>
+      <button @click="addToOrder" class="AddtoOrder">
+        Add to order ({{ itemsInCart }})
+      </button>
     </div>
   </div>
 </template>
@@ -46,19 +48,25 @@ export default {
     let itemsInCart = ref(props.item.quantity);
 
     function incrementQuantity() {
+      // ! add a computed property to show them how much more they can add
       if (total.value >= 15) {
-        alert(
-          `Sorry, but the maximum amount you can order is 15 of ${props.item.name}`
-        );
-
-        return;
+        return Swal.fire({
+          text:
+            "I'm sorry, but the maximum allowable quantity for " +
+            props.item.name +
+            " is 15. Please reduce the quantity or choose a different item.",
+          icon: "info",
+        });
       } else {
+        // console.log(15 - total.value)
+        
         total.value++;
         itemsInCart.value++;
         props.item.quantity = total.value;
+        // console.log(total)
         emit("incrementQuantity", props.item.name, props.item.quantity); // this will emit the item name and quantity to the parent
       }
-      // emit("addToSelected", props.item.name);
+
     }
 
     function decrementQuantity() {
@@ -67,7 +75,7 @@ export default {
         itemsInCart.value--;
         props.item.quantity = total.value;
       }
-      emit("decrementQuantity", props.item.name, props.item.quantity); 
+      emit("decrementQuantity", props.item.name, props.item.quantity);
       // emit("addToSelected", props.item.name);
     }
 
@@ -77,22 +85,24 @@ export default {
         props.item.quantity = total.value;
         itemsInCart.value = total.value;
         emit("incrementQuantity", props.item.name, props.item.quantity); // emit it back to the database so it doesn't just remain zero
+        console.log("hi");
         return Swal.fire({
           text:
-            "the Quantity is zero on " +
+            "Sorry, the quantity for " +
             props.item.name +
-            " there for it can't be added to the order",
-          icon: "error",
+            " is currently set to zero and cannot be added to your Cart." +
+            "Please choose a different item or try again later.",
+          icon: "info",
           confirmButtonText: "Okay",
         });
       }
 
       if (props.item.quantity >= 14) {
-        return Swal.fire({
-          text: "The maximum you can order for " + props.item.name + " 15",
-          icon: "error",
-          confirmButtonText: "Okay",
-        });
+        // return Swal.fire({
+        //   text: "The maximum you can order for " + props.item.name + " 15",
+        //   icon: "error",
+        //   confirmButtonText: "Okay",
+        // });
       }
 
       // console.log(props.item.name +'    ' +props.item.quantity)
@@ -125,23 +135,27 @@ export default {
 <style>
 .AddtoOrder {
   cursor: pointer;
-    font-size: 0.9rem;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    border: none;
-    box-shadow: 5px 5px grey;
-    color: rgb(255, 255, 255);
-    transition: all 0.3s ease-in-out;
-    background-color: lightblue;
-    margin: 1rem;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2rem;
+  font-size: 0.9rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border: none;
+  box-shadow: 5px 5px grey;
+  color: rgb(255, 255, 255);
+  transition: all 0.3s ease-in-out;
+  background-color: lightblue;
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
 }
 .AddtoOrder:hover {
   /* cursor: pointer; */
-  background-color: #43A6C6
+  background-color: #43a6c6;
 }
 
+.AddtoOrder:active {
+  transform: scale(.9);
+  box-shadow: 0 3px 15px -2px;
+}
 </style>

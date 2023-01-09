@@ -1,9 +1,12 @@
 let express = require("express");
 let menu_api = require('./routes/menu')
+let path = require('path')
 
 let app = express();
 
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname,'client','dist')));
 
 app.use('/api', menu_api);
 

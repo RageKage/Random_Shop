@@ -20,8 +20,7 @@ import Checkout from "./Checkout.vue";
 import { useItemStore } from "../Stores/Items";
 import { onMounted } from "@vue/runtime-core";
 
-// TODO: set up props for the checkout and display all that is selected on there
-// TODO: setup a request to the server to get only the current selected items and then add the Checkout component
+// TODO: update the database so you can sort them categorize like drinks, desserts, or main dish etc. or find a food api that does this
 export default {
   name: "menu_list",
   components: {
@@ -116,7 +115,6 @@ export default {
   height: 25px;
   font-size: 18px;
   border: none;
-  /* border: 2px solid black; */
   box-shadow: 5px 5px grey;
   color: white;
   transition: all 0.3s ease-in-out;
@@ -126,6 +124,12 @@ export default {
   align-items: center;
   cursor: pointer;
   border-radius: 2rem;
+}
+
+.card .add-button:active,
+.card .remove-button:active {
+  transform: scale(0.9);
+  box-shadow: 0 3px 15px -2px;
 }
 
 .card .add-button:hover,

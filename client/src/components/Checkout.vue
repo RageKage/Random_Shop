@@ -64,31 +64,6 @@
         >
           Confirm Order
         </button>
-
-
-        <div>
-          <div>
-            <h2>Previous Orders</h2>
-          </div>
-          <div
-            class="previous-orders-table"
-            v-for="order in PreviousOrder"
-            :key="order.label"
-          >
-            <div>{{ order.label }}</div>
-            <!-- <div>{{ order.items }}</div> -->
-            <div v-for="item in order.items" :key="item.id">
-              <div class="previous-orders-cell">{{ item.name }}</div>
-              <div class="previous-orders-cell">
-                quantity: {{ item.quantity }}
-              </div>
-              <!-- <div>Total: ${{ orderTotal }}</div> -->
-              <span class="price-label">${{ item.price }} for each</span>
-            </div>
-
-            <div>Total: ${{ order.total }}</div> 
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -128,6 +103,8 @@ export default {
       }
       return total.toFixed(2);
     });
+
+    console.log(totalPrice)
 
 
     function calculateTotalPrice(item) {
@@ -207,6 +184,11 @@ export default {
   cursor: pointer;
 }
 
+.remove-button:active {
+  transform: scale(.9);
+  box-shadow: 0 3px 15px -2px;
+}
+
 .total-price {
   margin: 20px 0;
   font-size: 1.5em;
@@ -222,11 +204,11 @@ export default {
   height: 30px;
   font-size: 20px;
   border: none;
-  border: 2px solid black;
-  box-shadow: 5px 5px gray;
+  /* border: 2px solid black; */
+  box-shadow: 5px 5px grey;
   color: white;
   transition: all 0.3s ease-in-out;
-  background-color: grey;
+  background-color: lightblue;
   margin: 1rem;
   justify-content: center;
   align-items: center;
@@ -235,26 +217,11 @@ export default {
 }
 
 .Confirm-Button:hover {
-  background-color: lightblue;
+  background-color: #43a6c6;
 }
-
-.previous-orders-table {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  /* align-items: center; */
-  /* justify-content: space-around; */
-  justify-content: space-between;
-
-  width: auto;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+.Confirm-Button:active {
+  transform: scale(.9);
+  box-shadow: 0 3px 15px -2px;
 }
-
-
 
 </style>
