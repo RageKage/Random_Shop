@@ -18,4 +18,6 @@ router-link.nav-link {
   bottom: 0;
   padding-bottom: 20px;
 }
+
+
 </style>

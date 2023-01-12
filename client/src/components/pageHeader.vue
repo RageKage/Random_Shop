@@ -2,7 +2,7 @@
   <div class="navs">
     <router-link class="nav-link" to="/">Home</router-link>
     <router-link class="nav-link" to="/Checkout"
-      >CheckOut ({{ NumOfItems }})
+      > CheckOut ( {{ NumOfItems }} )
       <!-- <img src="@/assets/checkout.png" alt="" /> -->
     </router-link>
     <router-link class="nav-link" to="/Orders">Your Orders</router-link>
@@ -29,14 +29,20 @@ export default {
 </script>
 
 <style>
-.navs {
-  background-color: #000000;
-  height: 50px;
+
+
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: #F5F5DC; 
 }
 
+
 .nav-link {
-  color: #ffffff;
-  font-size: 1rem;
+  /* color: #ffffff;
+  font-size: 1rem; */
   text-decoration: none;
   margin: 0 20px;
   padding: 0 20px;
@@ -45,9 +51,9 @@ export default {
   font-size: 18px;
   border: none;
   box-shadow: 5px 5px grey;
-  transition: all 0.3s ease-in-out;
-  background-color: lightblue;
-
+  transition: all 0.7s ease-in-out;
+  /* background-color: lightblue; */
+  background-color: #4d4d4d;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -59,6 +65,7 @@ export default {
   border-radius: 1rem;
   box-shadow: 0 3px 15px -2px;
   transform: scale(0.9);
+  /* color: red; */
 }
 
 .nav-link:active {
@@ -67,12 +74,11 @@ export default {
 }
 
 .router-link-exact-active {
-  background-color: #cccccc;
   border-radius: 1rem;
 }
 
 :root {
-  --primary-color: #000000;
+  /* --primary-color: #000000; */
   --secondary-color: #cccccc;
   --text-color: #ffffff;
 }
@@ -87,15 +93,132 @@ export default {
 
 .nav-link {
   color: var(--text-color);
-  font-size: 1rem;
-}
-
-.nav-link:hover {
-  background-color: var(--secondary-color);
-  border-radius: 1rem;
+  /* font-size: 1rem; */
 }
 
 .router-link-exact-active {
   background-color: var(--secondary-color);
+}
+@media only screen and (min-width: 375px) and (max-width: 375px) {
+  .nav-link {
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 0px 10px;
+    width: 40px;
+    height: 25px;
+    font-size: 15px;
+    border: none;
+    box-shadow: 5px 5px grey;
+    transition: all 0.7s ease-in-out;
+    background-color: #4d4d4d;
+
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 2rem;
+  }
+
+  .nav-link:hover {
+    background-color: #cccccc;
+    border-radius: 1rem;
+    box-shadow: 0 3px 15px -2px;
+    transform: scale(0.9);
+  }
+
+  .nav-link:active {
+    transform: scale(0.9);
+    box-shadow: 0 3px 15px -2px;
+  }
+
+  .router-link-exact-active {
+    background-color: #cccccc;
+    border-radius: 1rem;
+  }
+
+  :root {
+    --secondary-color: #cccccc;
+    --text-color: #ffffff;
+  }
+
+  .navs {
+    background-color: var(--primary-color);
+    height: 40px;
+    border-radius: 1rem;
+    padding-top: 20px;
+  }
+
+  .nav-link {
+    color: var(--text-color);
+  }
+
+  .nav-link:hover {
+    background-color: var(--secondary-color);
+    border-radius: 1rem;
+  }
+
+  .router-link-exact-active {
+    background-color: var(--secondary-color);
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 414px) {
+  .nav-link {
+    text-decoration: none;
+    margin: 0 12px;
+    padding: 0px 12px;
+    width: 40px;
+    height: 25px;
+    font-size: 16px;
+    border: none;
+    box-shadow: 5px 5px grey;
+    transition: all 0.7s ease-in-out;
+    background-color: #4d4d4d;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 2rem;
+  }
+
+  .nav-link:hover {
+    background-color: #cccccc;
+    border-radius: 1rem;
+    box-shadow: 0 3px 15px -2px;
+    transform: scale(0.9);
+  }
+
+  .nav-link:active {
+    transform: scale(0.9);
+    box-shadow: 0 3px 15px -2px;
+  }
+
+  .router-link-exact-active {
+    background-color: #cccccc;
+    border-radius: 1rem;
+  }
+
+  :root {
+    --secondary-color: #cccccc;
+    --text-color: #ffffff;
+  }
+
+  .navs {
+    background-color: var(--primary-color);
+    height: 40px;
+    border-radius: 1rem;
+    padding-top: 20px;
+  }
+
+  .nav-link {
+    color: var(--text-color);
+  }
+
+  .nav-link:hover {
+    background-color: var(--secondary-color);
+    border-radius: 1rem;
+  }
+
+  .router-link-exact-active {
+    background-color: var(--secondary-color);
+  }
 }
 </style>

@@ -1,63 +1,48 @@
 <template>
   <div class="main-wrapper">
     <div class="panel-wrapper">
-      <div class="basket-header panel-header">
-        <h2
-          class="text-align-left text-word-spacing-3 text-transform-uppercase text-shadow-2"
-        >
-          Checkout
-        </h2>
+      <div class="panel-header">
+        <h2>Checkout</h2>
       </div>
-      <div class="basket-body panel-body">
+      <div class="panel-body">
         <form>
           <div class="row column-titles">
-            <div class="name text-align-left">Name</div>
-            <div class="quantity text-align-left">Quantity</div>
-            <div class="price text-align-left">Price</div>
+            <div>Name</div>
+            <div>Quantity</div>
+            <div>Price</div>
           </div>
           <div
             v-for="item in ItemStore.data.selectedItem"
             :key="item.id"
             class="row product"
           >
-            <div class="name text-align-left">{{ item.name }}</div>
-            <div class="quantity text-align-left">
+            <div>{{ item.name }}</div>
+            <div>
               {{ item.quantity }}
               <!-- <button @click="decrementQuantity(item.quantity, item.name)">-</button>
               {{ item.quantity }}
               <button @click="incrementQuantity(item.quantity, item.name)">+</button> -->
             </div>
-            <div class="price text-align-left">
+            <div>
               ${{ calculateTotalPrice(item) }}
               <div>
                 <!-- ${{ calculateTotalPrice(item) }} -->
                 <span class="price-label">${{ item.price }} for each</span>
               </div>
-              <button
-                class="remove-button text-transform-uppercase"
-                @click="remove(item)"
-              >
+              <button class="remove-button" @click="remove(item)">
                 Remove
               </button>
             </div>
           </div>
         </form>
-        <div
-          class="total-price text-align-right text-word-spacing-3 text-shadow-2"
-        >
-          Total: ${{ totalPrice }}
-        </div>
+        <div class="total-price">Total: ${{ totalPrice }}</div>
       </div>
     </div>
     <div class="panel-wrapper">
-      <div class="creditcard-header panel-header">
-        <h2
-          class="text-align-left text-word-spacing-3 text-transform-uppercase text-shadow-2"
-        >
-          Payment
-        </h2>
+      <div class="panel-header">
+        <h2>Payment</h2>
       </div>
-      <div class="creditcard-body panel-body">
+      <div class="panel-body">
         <button
           class="Confirm-Button"
           @click="confirmOrder(ItemStore.data.selectedItem)"
@@ -138,6 +123,8 @@ export default {
 </script>
 
 <style scoped>
+
+/* .main-wrapper{} */
 .main-wrapper {
   display: flex;
   flex-direction: column;
@@ -222,4 +209,7 @@ export default {
   transform: scale(0.9);
   box-shadow: 0 3px 15px -2px;
 }
+
+
+
 </style>

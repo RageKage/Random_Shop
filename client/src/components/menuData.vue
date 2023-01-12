@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div>{{ item.name }}</div>
+    <div class="item-name">{{ item.name }}</div>
     <div>{{ item.description }}</div>
     <div>${{ item.price }}</div>
     <div>{{ item.quantity }}</div>
@@ -58,8 +58,7 @@ export default {
           icon: "info",
         });
       } else {
-        // console.log(15 - total.value)
-
+        // console.log(15 - props.item.quantity)
         total.value++;
         itemsInCart.value++;
         props.item.quantity = total.value;
@@ -73,6 +72,7 @@ export default {
         total.value--;
         itemsInCart.value--;
         props.item.quantity = total.value;
+        // console.log(props.item.quantity)
       }
       emit("decrementQuantity", props.item.name, props.item.quantity);
       // emit("addToSelected", props.item.name);
@@ -131,7 +131,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
 .AddtoOrder {
   cursor: pointer;
   font-size: 0.9rem;
@@ -142,7 +143,10 @@ export default {
   box-shadow: 5px 5px grey;
   color: rgb(255, 255, 255);
   transition: all 0.3s ease-in-out;
-  background-color: lightblue;
+  /* background-color: #2f9bbf; */
+  background-color: #0077C8;
+
+
   margin: 1rem;
   justify-content: center;
   align-items: center;
@@ -150,11 +154,46 @@ export default {
 }
 .AddtoOrder:hover {
   /* cursor: pointer; */
-  background-color: #43a6c6;
+  background-color: #2f9bbf;
 }
 
 .AddtoOrder:active {
   transform: scale(0.9);
   box-shadow: 0 3px 15px -2px;
 }
+
+.card .add-button,
+.card .remove-button {
+  width: 40px;
+  height: 25px;
+  font-size: 18px;
+  border: none;
+  box-shadow: 5px 5px grey;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  background-color: #0077C8;
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 2rem;
+}
+
+.card .add-button:active,
+.card .remove-button:active {
+  transform: scale(0.9);
+  box-shadow: 0 3px 15px -2px;
+}
+
+.card .add-button:hover,
+.card .remove-button:hover {
+  /* background-color: rgb(155, 151, 151); */
+  background-color: #2f9bbf;
+  /* color: red; */
+}
+.item-name {
+  font-size: 150%;
+}
+
+
 </style>

@@ -1,14 +1,14 @@
 <template>
-  <div class="A">
+  <div class="order-container">
     <div>
       <div>
         <h1>Previous Orders</h1>
-        <div v-for="order in userOrders" :key="order.label" class="B">
+        <div v-for="order in userOrders" :key="order.label" class="order">
           <div>
-            <div class="C">{{ order.label }}</div>
+            <div class="order-label">{{ order.label }}</div>
           </div>
           <!-- <div>{{ order.items }}</div> -->
-          <div v-for="item in order.items" :key="item.id" class="D">
+          <div v-for="item in order.items" :key="item.id" class="order-item">
             <div>{{ item.name }}</div>
             <div>quantity: {{ item.quantity }}</div>
             <div>
@@ -19,12 +19,13 @@
             </div>
           </div>
 
-          <div class="E">Total: ${{ order.total }}</div>
+          <div class="order-total">Total: ${{ order.total }}</div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import { useItemStore } from "../Stores/Items";
@@ -55,13 +56,13 @@ export default {
   color: #666;
 }
 
-.A {
+.order-container {
   /* border: 1px black solid; */
   padding: 5px 5px 5px;
   margin: 50px 50px 50px;
   font: sans-serif;
 }
-.B {
+.order {
   /* border: 1px blue solid; */
   padding: 5px 5px 5px;
   margin: 50px 50px;
@@ -70,7 +71,7 @@ export default {
   box-shadow: 0 3px 15px -2px;
 }
 
-.C {
+.order-label {
   /* border: 1px red solid; */
   padding: 10px 10px 10px;
   margin: 50px 50px 50px;
@@ -81,7 +82,7 @@ export default {
   border-radius: 5rem;
 }
 
-.D {
+.order-item {
   border: 1px green solid;
   padding: 5px 5px 5px;
   margin: 20px 20px 20px;
@@ -102,7 +103,7 @@ export default {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.E {
+.order-total {
   /* border: 1px red solid; */
   padding: 5px 5px 5px;
   margin: 20px 20px 20px;
@@ -114,4 +115,5 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+
 </style>
