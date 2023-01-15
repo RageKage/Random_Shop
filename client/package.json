@@ -7,15 +7,18 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@quasar/extras": "^1.0.0",
     "axios": "^1.2.1",
     "core-js": "^3.8.3",
     "pinia": "^2.0.28",
+    "quasar": "^2.0.0",
     "sweetalert2": "^11.6.16",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "vue-cli-plugin-quasar": "~5.0.1"
   }
 }

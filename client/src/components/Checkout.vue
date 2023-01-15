@@ -1,61 +1,43 @@
 <template>
   <div class="main-wrapper">
     <div class="panel-wrapper">
-      <div class="panel-header">
-        <h2>Checkout</h2>
+      <div>
+        <p class="panel-header">Checkout</p>
       </div>
-      <div class="panel-body">
-        <form>
-          <div class="row column-titles">
-            <div>Name</div>
-            <div>Quantity</div>
-            <div>Price</div>
-          </div>
-          <div
-            v-for="item in ItemStore.data.selectedItem"
-            :key="item.id"
-            class="row product"
-          >
-            <div>{{ item.name }}</div>
-            <div>
-              {{ item.quantity }}
-              <!-- <button @click="decrementQuantity(item.quantity, item.name)">-</button>
-              {{ item.quantity }}
-              <button @click="incrementQuantity(item.quantity, item.name)">+</button> -->
-            </div>
-            <div>
-              ${{ calculateTotalPrice(item) }}
-              <div>
-                <!-- ${{ calculateTotalPrice(item) }} -->
-                <span class="price-label">${{ item.price }} for each</span>
-              </div>
-              <button class="remove-button" @click="remove(item)">
-                Remove
-              </button>
-            </div>
-          </div>
-        </form>
+      <table class="table">
+        <tr>
+          <th class="item-theader">Item</th>
+          <th class="quantity-theader">Quantity</th>
+          <th class="price-theader">Price</th>
+        </tr>
+        <br />
+        <CheckoutTableRows
+          v-for="item in ItemStore.data.selectedItem"
+          :key="item.id"
+          :item="item"
+        />
         <div class="total-price">Total: ${{ totalPrice }}</div>
-      </div>
+      </table>
     </div>
-    <div class="panel-wrapper">
-      <div class="panel-header">
+
+    <div class="Confirm-header">
+      <q-btn
+        flat
+        @click="confirmOrder(ItemStore.data.selectedItem)"
+        class="Confirm-Button"
+        label="Confirm Order"
+      />
+    </div>
+    <!-- <div class="panel-header">
         <h2>Payment</h2>
-      </div>
-      <div class="panel-body">
-        <button
-          class="Confirm-Button"
-          @click="confirmOrder(ItemStore.data.selectedItem)"
-        >
-          Confirm Order
-        </button>
-      </div>
-    </div>
+      </div> -->
   </div>
 </template>
 <script>
 import Vue from "vue";
 import Swal from "sweetalert2";
+
+import CheckoutTableRows from "./CheckoutTableRows.vue";
 
 // TODO: when the Confirm Order button is clicked take them back to the home page and reset everything including what the previous order
 // TODO: for future update maybe add a previous order List
@@ -70,15 +52,11 @@ import {
   getCurrentInstance,
 } from "vue";
 import { useItemStore } from "../Stores/Items";
-
+// TODO: ! add a button that will remove all the items in cart
 export default {
+  components: { CheckoutTableRows },
   setup() {
-    // const previousOrders = ref([]);
     const ItemStore = useItemStore();
-
-    const PreviousOrder = ItemStore.data.SaveOrders;
-
-    // console.log(PreviousOrder);
 
     const totalPrice = computed(() => {
       // a computed property that returns the total price of the items in cart
@@ -88,18 +66,6 @@ export default {
       }
       return total.toFixed(2);
     });
-
-    console.log(totalPrice);
-
-    function calculateTotalPrice(item) {
-      return (item.price * item.quantity).toFixed(2); // the calculated price of every item
-    }
-
-    const remove = ItemStore.remove;
-
-    const incrementQuantity = ItemStore.increaseQuantity;
-
-    const decrementQuantity = ItemStore.decreaseQuantity;
 
     const confirmOrder = ItemStore.Notify;
 
@@ -111,73 +77,53 @@ export default {
       ItemStore,
       onMounted,
       totalPrice,
-      calculateTotalPrice,
-      remove,
       confirmOrder,
-      PreviousOrder,
-      incrementQuantity,
-      decrementQuantity,
     };
   },
 };
 </script>
 
 <style scoped>
-
-/* .main-wrapper{} */
 .main-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
 .panel-wrapper {
   width: 80%;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 10px 0;
+  color: black;
+  /* border: 1px black solid; */
+  border-radius: 1rem;
+  margin-bottom: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10px;
+  font: sans-serif;
+  box-shadow: 20px 20px grey;
+  overflow-y: scroll;
+  height: 470px;
+  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .panel-header {
+  font-size: 3rem;
   background-color: #f5f5f5;
   border-bottom: 1px solid #ddd;
   padding: 20px;
 }
 
-.panel-body {
-  padding: 20px;
-}
-
-.column-titles {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-  font-weight: bold;
-}
-
-.product {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-}
-
-.remove-button {
-  background-color: tomato;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.remove-button:active {
-  transform: scale(0.9);
-  box-shadow: 0 3px 15px -2px;
-}
-
 .total-price {
-  margin: 20px 0;
   font-size: 1.5em;
+  text-align: left;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: black;
 }
 
 .price-label {
@@ -186,11 +132,9 @@ export default {
 }
 
 .Confirm-Button {
-  /* width: 40px; */
   height: 30px;
-  font-size: 20px;
+  font-size: 15px;
   border: none;
-  /* border: 2px solid black; */
   box-shadow: 5px 5px grey;
   color: white;
   transition: all 0.3s ease-in-out;
@@ -210,6 +154,104 @@ export default {
   box-shadow: 0 3px 15px -2px;
 }
 
+.Confirm-header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  color: black;
 
+  width: 80%;
 
+  border-radius: 10px;
+  margin: 10px 0;
+  color: white;
+  border-radius: 1rem;
+  margin-bottom: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10px;
+  font: sans-serif;
+  box-shadow: 20px 20px grey;
+  overflow-y: scroll;
+}
+.table {
+  /* color: #fff; */
+  /* background-color: #212529; */
+  /* border-color: #32383e; */
+  width: 100%;
+  overflow: scroll;
+  border-collapse: collapse;
+  /* border-radius: 100px; */
+}
+
+.table td,
+.table th {
+  padding: 0.5rem;
+}
+
+th {
+  /* this is for the header */
+  /* background-color: white; */
+  color: black;
+  width: 30%;
+  font-size: 20px;
+}
+
+tr {
+  /* change the style of the table rows */
+  text-align: left;
+}
+
+.item-theader {
+  text-align: left;
+}
+
+.price-theader {
+  text-align: center;
+}
+
+.quantity-theader {
+  text-align: center;
+}
+
+@media only screen and (min-width: 375px) and (max-width: 375px) {
+  .panel-header {
+    font-size: 1.8rem;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+  }
+  th {
+    font-size: 15px;
+  }
+  .panel-wrapper {
+    height: 400px;
+    box-shadow: 10px 10px grey;
+  }
+
+  .Confirm-Button {
+    font-size: 12px;
+  }
+
+  .Confirm-header {
+    box-shadow: 10px 5px grey;
+  }
+
+  .total-price {
+    font-size: 1rem;
+  }
+}
+
+/* @media only screen and (min-width: 390px) and (max-width: 414px) {
+  .panel-wrapper {
+    width: 90%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+    background-color: #212529;
+    border-color: #32383e;
+    color: white;
+    overflow: hidden;
+  }
+} */
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div v-if="showContent" class="container">
-      
       <MenuData
         class="card"
         v-for="item in ItemsStore.data.menuItem"
@@ -20,6 +19,8 @@ import MenuData from "./menuData.vue";
 
 import { useItemStore } from "../Stores/Items";
 import { onMounted } from "@vue/runtime-core";
+
+
 
 // TODO: update the database so you can sort them categorize like drinks, desserts, or main dish etc. or find a food api that does this
 export default {
@@ -49,6 +50,7 @@ export default {
       ItemsStore.selectItem(itemName, quantity); // this will add item to selected so it can be shown in the checkout page
     }
 
+
     return {
       ItemsStore,
       onMounted,
@@ -65,7 +67,6 @@ export default {
 </script>
 
 <style scoped>
-
 .card {
   display: flex;
   flex-direction: column;
@@ -128,44 +129,35 @@ export default {
   overflow: auto;
 }
 
-
-
 @media only screen and (min-width: 375px) and (max-width: 414px) {
   .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    height: 550px;
-    overflow: auto;
+    height: 540px;
   }
 }
 @media only screen and (min-width: 390px) {
   .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     height: 700px;
-    overflow: auto;
   }
 }
 
 @media only screen and (min-width: 414px) {
   .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     height: 750px;
-    overflow: auto;
   }
 }
 
-@media only screen and (min-width:1000px) and (max-width: 1500px) {
+@media only screen and (min-width: 390px) and (max-width: 414px) {
   .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    height: 770px;
+  }
+  .card {
+    width: 210px;
+  }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1500px) {
+  .container {
     height: 650px;
-    overflow: auto;
   }
 }
 </style>

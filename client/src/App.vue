@@ -11,6 +11,7 @@ import pageHeader from "./components/pageHeader.vue";
 import pageFooter from "./components/pageFooter.vue";
 import homePage from "./components/homePage.vue";
 
+
 export default {
   name: "App",
   components: {
@@ -18,15 +19,18 @@ export default {
     pageHeader,
     homePage,
   },
+  setup() {
+
+  },
 };
 </script>
 
-<style scoped >
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: red; 
+  background-color: red;
 }
 </style>

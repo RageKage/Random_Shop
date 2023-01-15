@@ -13,11 +13,13 @@
 <script></script>
 
 <style scoped>
-router-link.nav-link {
-  position: absolute;
+.nav-link {
+  /* position: absolute; */
   bottom: 0;
-  padding-bottom: 20px;
+  margin-top: 20px;
+  /* padding-top: 20px; */
 }
+
 
 
 </style>

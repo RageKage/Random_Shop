@@ -6,8 +6,9 @@
     <div>{{ item.quantity }}</div>
 
     <div class="contain">
-      <button @click="incrementQuantity" class="add-button">+</button>
       <button @click="decrementQuantity" class="remove-button">-</button>
+      <button @click="incrementQuantity" class="add-button">+</button>
+      <!-- <button @click="decrementQuantity" class="remove-button">-</button> -->
     </div>
     <div>
       <button @click="addToOrder" class="AddtoOrder">
@@ -34,9 +35,12 @@ import {
 import Swal from "sweetalert2";
 
 export default {
-  emits: ["decrement-Quantity", "increment-Quantity", "addToSelected"],
+  // emits: ["decrement-Quantity", "increment-Quantity", "addToSelected"],
   props: {
-    item: Object,
+    item: {
+      type: Object,
+      required: true,
+    },
   },
   setup(props, { emit }) {
     const ItemStore = useItemStore();
@@ -132,7 +136,6 @@ export default {
 </script>
 
 <style scoped>
-
 .AddtoOrder {
   cursor: pointer;
   font-size: 0.9rem;
@@ -144,17 +147,16 @@ export default {
   color: rgb(255, 255, 255);
   transition: all 0.3s ease-in-out;
   /* background-color: #2f9bbf; */
-  background-color: #0077C8;
-
+  background-color: #0077c8;
 
   margin: 1rem;
   justify-content: center;
   align-items: center;
-  border-radius: 2rem;
+  border-radius: 1rem;
 }
 .AddtoOrder:hover {
   /* cursor: pointer; */
-  background-color: #2f9bbf;
+  background-color: #2f9b2f;
 }
 
 .AddtoOrder:active {
@@ -171,7 +173,7 @@ export default {
   box-shadow: 5px 5px grey;
   color: white;
   transition: all 0.3s ease-in-out;
-  background-color: #0077C8;
+  background-color: #708090;
   margin: 1rem;
   justify-content: center;
   align-items: center;
@@ -185,15 +187,16 @@ export default {
   box-shadow: 0 3px 15px -2px;
 }
 
-.card .add-button:hover,
-.card .remove-button:hover {
-  /* background-color: rgb(155, 151, 151); */
+.card .add-button:hover {
   background-color: #2f9bbf;
-  /* color: red; */
 }
+.card .remove-button:hover {
+  background-color: #9b2f2f;
+  /* background-color: #2f9bbf; */
+}
+
+
 .item-name {
   font-size: 150%;
 }
-
-
 </style>
