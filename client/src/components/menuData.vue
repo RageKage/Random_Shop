@@ -6,13 +6,17 @@
     <div>{{ item.quantity }}</div>
 
     <div class="contain">
-      <button @click="decrementQuantity" class="remove-button">-</button>
-      <button @click="incrementQuantity" class="add-button">+</button>
-      <!-- <button @click="decrementQuantity" class="remove-button">-</button> -->
+      <button @click="decrementQuantity" class="remove-button">
+        <span class="material-icons"> remove </span>
+      </button>
+      <button @click="incrementQuantity" class="add-button">
+        <span class="material-icons"> add </span>
+      </button>
     </div>
     <div>
       <button @click="addToOrder" class="AddtoOrder">
-        Add to order ({{ itemsInCart }})
+        <span class="material-icons" style=""> add_shopping_cart </span>
+        {{ itemsInCart }}
       </button>
     </div>
   </div>
@@ -153,6 +157,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
+  padding: 0.2rem 1.5rem 0.2rem 1.5rem;
 }
 .AddtoOrder:hover {
   /* cursor: pointer; */
