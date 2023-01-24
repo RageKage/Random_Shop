@@ -16,18 +16,37 @@
           :key="item.id"
           :item="item"
         />
-        <div class="total-price">Total: ${{ totalPrice }}</div>
+        <!-- <div class="total-price">Total: ${{ totalPrice }}</div> -->
       </table>
+      <!--  -->
+      <!-- <div class="total-price">Total: ${{ totalPrice }}</div> -->
+    <span class="total-price"> <strong> Total: ${{ totalPrice }}</strong></span> 
+
+      <q-btn
+        @click="confirmOrder(ItemStore.data.selectedItem)"
+        class="Confirm-Button"
+        label="Confirm Order"
+      >
+      </q-btn>
     </div>
 
-    <div class="Confirm-header">
+    <!--  <span class="total-price">Total: ${{ totalPrice }}</span>  -->
+
+    <!-- <div class="Confirm-header">
       <q-btn
+        @click="confirmOrder(ItemStore.data.selectedItem)"
+        class="Confirm-Button"
+        label="Confirm Order"
+      >
+      </q-btn>
+    </div> -->
+
+    <!--       <q-btn
         flat
         @click="confirmOrder(ItemStore.data.selectedItem)"
         class="Confirm-Button"
         label="Confirm Order"
-      />
-    </div>
+      /> -->
     <!-- <div class="panel-header">
         <h2>Payment</h2>
       </div> -->
@@ -84,6 +103,7 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kalam&family=Paytone+One&family=Poppins:wght@500&family=Raleway:wght@300&family=Stick+No+Bills&display=swap');
 .main-wrapper {
   display: flex;
   flex-direction: column;
@@ -104,11 +124,12 @@ export default {
   margin-right: 10%;
   margin-top: 10px;
   font: sans-serif;
-  box-shadow: 20px 20px grey;
+  /* box-shadow: 20px 20px grey; */
   overflow-y: scroll;
   height: 470px;
   overflow-y: scroll;
   overflow-x: scroll;
+  background-color: rgb(226 232 240);
 }
 
 .panel-header {
@@ -119,11 +140,13 @@ export default {
 }
 
 .total-price {
-  font-size: 1.5em;
+  font-size: 1rem;
+  font-weight: bold;
   text-align: left;
   padding-top: 20px;
   padding-bottom: 20px;
   color: black;
+  /* margin-left: 1rem; */
 }
 
 .price-label {
@@ -138,16 +161,21 @@ export default {
   box-shadow: 5px 5px grey;
   color: white;
   transition: all 0.3s ease-in-out;
-  background-color: lightblue;
+  background-color: #0077c8;
   margin: 1rem;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border-radius: 2rem;
+
+  margin-left: 55rem;
+  /* padding-right: 1rem;
+  margin-bottom: 2rem; */
 }
 
 .Confirm-Button:hover {
-  background-color: #43a6c6;
+  /* background-color: #43a6c6; */
+  background-color: #2f9b2f;
 }
 .Confirm-Button:active {
   transform: scale(0.9);

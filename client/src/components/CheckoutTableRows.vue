@@ -1,15 +1,20 @@
 <template>
   <tr>
     <td class="item-td-name">{{ item.name }}</td>
-    <td class="item-td-quantity">{{ item.quantity }}</td>
+    <td class="item-td-quantity">
+
+      <button class="decrease-button" @click="decrementQuantity( item.name, item.quantity, )">
+        <span class="material-icons"> remove </span>
+      </button>
+
+      {{ item.quantity }}
+      <button class="increase-button" @click="incrementQuantity( item.name, item.quantity)">
+        <span class="material-icons"> add </span>
+      </button>
+    </td>
     <td class="item-td-price">
       ${{ calculateTotalPrice(item) }}
-      <!-- <span style="padding: 50px"><button class="remove-button" @click="remove(item)">Remove</button></span> -->
-      <br /><span class="price-label">${{ item.price }} for each</span>
-
-      <!-- <br /><span class="price-label"
-        >${{ item.price }} for each</span
-      >  -->
+     <br /><span class="price-label">${{ item.price }} for each</span>
     </td>
 
     <td class="item-td-remove">
@@ -41,11 +46,29 @@ export default {
 
     const remove = ItemStore.remove;
 
+    // const decrementQuantity = ItemStore.decreaseQuantity(item.quantity, item)
+
+    // const incrementQuantity = ItemStore.increaseQuantity(item.quantity, item)
+
+    function decrementQuantity(item, quantity) {
+      ItemStore.SelectedDecreasing(quantity, item)
+    }
+
+    function incrementQuantity(item, quantity){
+      ItemStore.Selectedincrease(quantity, item)
+    }
+
     function calculateTotalPrice(item) {
       return (item.price * item.quantity).toFixed(2); // the calculated price of every item
     }
 
-    return { calculateTotalPrice, remove, ItemStore };
+    return {
+      calculateTotalPrice,
+      remove,
+      ItemStore,
+      decrementQuantity,
+      incrementQuantity,
+    };
   },
 };
 </script>
@@ -71,7 +94,7 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   transform: scale(0.9);
   box-shadow: 0 3px 15px -2px #ff6347;
 }
@@ -95,21 +118,25 @@ td {
   width: auto;
   padding-bottom: 10px;
   margin-bottom: 10px;
+  border-bottom: rgb(112, 128, 144 , 50%)  solid;
 }
 
 tr:hover {
-  background-color: #dedbd7;
-  box-shadow: 2px 2px 5px rgb(0 0 0 / 10%);
-  transform: scale(0.99);
-  box-shadow: 0 3px 15px -1px;
+
+  box-shadow: 5px 10px 10px 10px rgb(0 0 0 / 10%);
+
+  font-size: 15px;
+  border-radius: 1rem;
+  background-color: rgb(241 245 249);
+  transition: all 0.3s ease-in-out;
+
 }
 
-
-.item-td-name  {
+.item-td-name {
   text-align: left;
 }
 
-.item-td-price  {
+.item-td-price {
   text-align: center;
 }
 
@@ -119,6 +146,51 @@ tr:hover {
 
 .item-td-remove {
   text-align: center;
+}
+
+.decrease-button, .increase-button {
+  decoration: none;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.decrease-button:hover {
+  background-color: #9b2f2f;
+  color: white;
+  transition: all 0.4s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transform: scale(0.9);
+  box-shadow: 0 3px 15px -2px #9b2f2f;
+}
+
+.increase-button:hover {
+  background-color: #2f9bbf;
+  color: white;
+  transition: all 0.4s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transform: scale(0.9);
+  box-shadow: 0 3px 15px -2px #2f9bbf;
+}
+
+@media only screen and (min-width: 375px) and (max-width: 375px) {
+  .decrease-button {
+    border: none;
+    padding: 5px 5px;
+  }
+  
+  
+  .increase-button {
+    border: none;
+    padding: 5px 5px;
+}
 
 }
 </style>

@@ -1,9 +1,8 @@
 <template>
   <div>
     <h1 class="title">A Vue.js site By Niman Ahmed</h1>
-    <!-- Add an element for the site tagline -->
     <p class="tagline">
-      This is an mockup of online restaurant where orders can be place
+      This is an mockup of online/grocerie store restaurant where orders can be place
     </p>
   </div>
 </template>
@@ -16,3 +15,8 @@ export default {
   setup() {},
 };
 </script>
+
+<style scoped>
+
+
+</style>

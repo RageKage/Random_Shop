@@ -26,6 +26,10 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      image: {
+        type: Sequelize.BLOB,
+        allowNull: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

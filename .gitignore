@@ -1,2 +1,4 @@
 node_modules/
 menuitems.db
+# Local Netlify folder
+.netlify

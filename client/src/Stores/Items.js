@@ -39,13 +39,49 @@ export const useItemStore = defineStore("ItemStore", () => {
     });
   };
 
+  const Selectedincrease = (quantity, itemName) => {
+    const index = data.selectedItem.findIndex((item) => item.name == itemName); // Find the index of the item in the selectedItem array
+    // console.log(index);
+    if (index >= 0) {
+      if (data.selectedItem[index].quantity > 14) {
+        data.selectedItem[index].quantity = 15;
+        return Swal.fire({
+          text: "sorry but the maximum is 15",
+          icon: "info",
+        });
+      }
+      data.selectedItem[index].quantity++;
+      localStorage.setItem("selectedItem", JSON.stringify(data.selectedItem));
+    }
+  };
+
+
+
   const decreaseQuantity = (quantity, item) => {
     service.updateQuantity(quantity, item).then(() => {
       fetchMenuData();
     });
   };
+
+  const SelectedDecreasing = (quantity, itemName) => {
+    const index = data.selectedItem.findIndex((item) => item.name == itemName); // Find the index of the item in the selectedItem array
+    // console.log(index);
+    if (index >= 0) {
+      if (data.selectedItem[index].quantity < 1) {
+        data.selectedItem[index].quantity = 1;
+        return Swal.fire({
+          text: "You can't set quantity to zero",
+          icon: "warning",
+        });
+      }
+      data.selectedItem[index].quantity--;
+      localStorage.setItem("selectedItem", JSON.stringify(data.selectedItem));
+    }
+  };
+
   // TODO: make sure the quantity is not over 15 items and if it is don't add it to the array and use the Swal
   //TODO: code from the client side to show the alert
+
   const selectItem = (itemName, quantity) => {
     const index = data.selectedItem.findIndex((item) => item.name === itemName); // this wil
     // console.log(index);
@@ -60,18 +96,27 @@ export const useItemStore = defineStore("ItemStore", () => {
       });
     } else {
       // If the item is already in the array, increase the quantity by 1
-
-      if (data.selectedItem[index].quantity + quantity > 15) {
+      if (data.selectedItem[index].quantity + quantity >= 16) {
         return Swal.fire({
           text:
             "I'm sorry, but the maximum allowable quantity for " +
-            props.item.name +
+            data.selectedItem[index].name +
             " is 15. Please reduce the quantity or choose a different item.",
           icon: "info",
         });
       } else {
-        data.selectedItem[index].quantity += quantity;
-        localStorage.setItem("selectedItem", JSON.stringify(data.selectedItem));
+        if (data.selectedItem[index].quantity + quantity >= 16) {
+          return Swal.fire({
+            text: "sorry but the maximum is 15",
+            icon: "info",
+          });
+        } else {
+          data.selectedItem[index].quantity += quantity;
+          localStorage.setItem(
+            "selectedItem",
+            JSON.stringify(data.selectedItem)
+          );
+        }
       }
     }
   };
@@ -123,6 +168,18 @@ export const useItemStore = defineStore("ItemStore", () => {
   };
 
   const Notify = (item) => {
+    const index = data.selectedItem.findIndex((item) => item === item); 
+
+    if (index >= 0) {
+      // console.log(item);
+      if (data.selectedItem[index].quantity <= 0) {
+        return Swal.fire({
+          text: `Quantity for ${data.selectedItem[index].name} is ${data.selectedItem[index].quantity} `,
+          icon: "warning",
+          confirmButtonText: "Okay",
+        });
+      }
+    }
     if (item == "") {
       // return false if the cart is empty
       // this functions as a way to prevent empty orders
@@ -175,5 +232,7 @@ export const useItemStore = defineStore("ItemStore", () => {
     selectItem,
     remove,
     Notify,
+    SelectedDecreasing,
+    Selectedincrease
   };
 });

@@ -10,6 +10,7 @@
 
 <style scoped>
 .page-not-found {
+  /* ! make it so it takes over the whole page and */
   text-align: center;
   color: #43a6c6;
   top: 50%;

@@ -4,6 +4,7 @@
 
     <router-link class="nav-link" to="/Checkout">
       <span class="material-icons" style=""> add_shopping_cart </span>
+      <q-tooltip class="bg-accent">Checkout</q-tooltip>
       {{ NumOfItems }}
     </router-link>
 
@@ -31,11 +32,22 @@ export default {
 </script>
 
 <style>
+
+.tooltip:hover {
+
+}
+
+
+
 body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  /* background-color: rgb(241 245 249); */
+  /* background-color: #d4d4d4; */
+  background-color:  #172D13;
 }
 
 .nav-link {
@@ -46,17 +58,19 @@ body {
   height: 25px;
   font-size: 18px;
   border: none;
-  box-shadow: 5px 5px grey;
+  box-shadow: 5px 5px #FDF5DF;
   transition: all 0.7s ease-in-out;
-  background-color: #4d4d4d;
+  /* background-color: #4d4d4d; */
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border-radius: 2rem;
+  background-color: #6BB77B;
 }
 
 .nav-link:hover {
-  background-color: #cccccc;
+  background-color: 
+#c1632b;
   border-radius: 1rem;
 }
 
@@ -70,7 +84,8 @@ body {
 }
 
 :root {
-  --secondary-color: #cccccc;
+  --secondary-color: 
+#c1632b;
   --text-color: #ffffff;
 }
 

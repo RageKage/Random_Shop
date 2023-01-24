@@ -1,9 +1,16 @@
-<template>
+<template >
   <div class="card">
-    <div class="item-name">{{ item.name }}</div>
+    <div class="product-card">
+    <img :src="item.image" alt="product image" class="img">
+    <h2 >{{ item.name }}</h2>
+    <p>Price: ${{ item.price }}</p>
+    <p class="A">{{ item.description }}</p>
+  </div>
+
+    <!-- <div class="item-name">{{ item.name }}</div>
     <div>{{ item.description }}</div>
     <div>${{ item.price }}</div>
-    <div>{{ item.quantity }}</div>
+    <div>{{ item.quantity }}</div> -->
 
     <div class="contain">
       <button @click="decrementQuantity" class="remove-button">
@@ -13,7 +20,7 @@
         <span class="material-icons"> add </span>
       </button>
     </div>
-    <div>
+    <div class="contain-Order">
       <button @click="addToOrder" class="AddtoOrder">
         <span class="material-icons" style=""> add_shopping_cart </span>
         {{ itemsInCart }}
@@ -51,7 +58,7 @@ export default {
 
     let total = ref(props.item.quantity);
 
-    let count = ref(0);
+    let count = ref(0); // !this doesn't really do anything
 
     let itemsInCart = ref(props.item.quantity);
 
@@ -87,12 +94,13 @@ export default {
     }
 
     function addToOrder() {
+      // ! weird error when you add more then 15
       if (props.item.quantity <= 0) {
         total.value = 1;
         props.item.quantity = total.value;
         itemsInCart.value = total.value;
         emit("incrementQuantity", props.item.name, props.item.quantity); // emit it back to the database so it doesn't just remain zero
-        console.log("hi");
+        // console.log("hi");
         return Swal.fire({
           text:
             "Sorry, the quantity for " +
@@ -105,11 +113,11 @@ export default {
       }
 
       if (props.item.quantity >= 14) {
-        // return Swal.fire({
-        //   text: "The maximum you can order for " + props.item.name + " 15",
-        //   icon: "error",
-        //   confirmButtonText: "Okay",
-        // });
+        return Swal.fire({
+          text: "The maximum you can order for " + props.item.name + " 15",
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
       }
 
       // console.log(props.item.name +'    ' +props.item.quantity)
@@ -140,28 +148,48 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kalam&family=Paytone+One&family=Poppins:wght@500&family=Raleway:wght@300&family=Stick+No+Bills&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.img {
+  height: 200px;
+  width: 200px;
+}
+
 .AddtoOrder {
   cursor: pointer;
   font-size: 0.9rem;
   justify-content: center;
   align-items: center;
-  display: flex;
   border: none;
   box-shadow: 5px 5px grey;
   color: rgb(255, 255, 255);
   transition: all 0.3s ease-in-out;
-  /* background-color: #2f9bbf; */
   background-color: #0077c8;
-
   margin: 1rem;
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
   padding: 0.2rem 1.5rem 0.2rem 1.5rem;
+
+  font-family: "Paytone One", sans-serif;
+  color: white;
+  box-shadow: 5px 5px #fdf5df;
 }
 .AddtoOrder:hover {
-  /* cursor: pointer; */
+  cursor: pointer;
   background-color: #2f9b2f;
+  padding: 0.2rem 1.5rem 0.2rem 1.5rem;
+  line-height: 20px;
+  transition: all 0.4s ease-in-out;
+  transform: scale(0.9);
+  box-shadow: 0 3px 15px -2px;
 }
 
 .AddtoOrder:active {
@@ -175,7 +203,7 @@ export default {
   height: 25px;
   font-size: 18px;
   border: none;
-  box-shadow: 5px 5px grey;
+  box-shadow: 2px 2px #fdf5df;;
   color: white;
   transition: all 0.3s ease-in-out;
   background-color: #708090;
@@ -184,6 +212,8 @@ export default {
   align-items: center;
   cursor: pointer;
   border-radius: 2rem;
+  line-height: 15px;
+
 }
 
 .card .add-button:active,
@@ -194,14 +224,44 @@ export default {
 
 .card .add-button:hover {
   background-color: #2f9bbf;
+  transform: translateY(-3px);
+  font-weight: bold;
+  text-align: center;
+  line-height: 15px;
+
+  transition: all 0.5s ease-in-out;
 }
 .card .remove-button:hover {
   background-color: #9b2f2f;
-  /* background-color: #2f9bbf; */
+  transform: translateY(-3px);
+  font-weight: bold;
+  text-align: center;
+  line-height: 15px;
+
+  transition: all 0.5s ease-in-out;
 }
 
 
-.item-name {
-  font-size: 150%;
+.product-card img {
+  width: 100%;
+  border: 10px solid white;
+  border-radius: 1rem;
 }
+
+.product-card h2 {
+  margin-top: 10px;
+  margin-bottom: 5px; 
+  font-size: 1.2em;
+
+  /* font-family: "Paytone One", sans-serif; */
+  color: white;
+}
+
+.product-card p {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: white;
+}
+
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="showContent" class="container">
+    <div class="container">
       <MenuData
         class="card"
         v-for="item in ItemsStore.data.menuItem"
@@ -20,8 +20,6 @@ import MenuData from "./menuData.vue";
 import { useItemStore } from "../Stores/Items";
 import { onMounted } from "@vue/runtime-core";
 
-
-
 // TODO: update the database so you can sort them categorize like drinks, desserts, or main dish etc. or find a food api that does this
 export default {
   name: "menu_list",
@@ -31,15 +29,17 @@ export default {
   setup() {
     const ItemsStore = useItemStore();
 
-    function showContent() {
-      showContent = true;
-    }
+    // function showContent() {
+    //   showContent = false; // forgot what this does
+    //   console.log(showContent);
+    // v-if="showContent"
+    // }
     onMounted(() => {
       ItemsStore.fetchMenuData();
-      showContent();
     });
 
     function AddQuantity(item, quantity) {
+      console.log(item, quantity);
       ItemsStore.increaseQuantity(quantity, item); // this will add quantity
     }
     function SubtractQuantity(item, quantity) {
@@ -50,14 +50,13 @@ export default {
       ItemsStore.selectItem(itemName, quantity); // this will add item to selected so it can be shown in the checkout page
     }
 
-
     return {
       ItemsStore,
       onMounted,
       SubtractQuantity,
       AddQuantity,
       addItemToSelected,
-      showContent,
+      // showContent,
       // decrease,
       // ItemsStore
       // addItemToSelected,
@@ -67,97 +66,88 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kalam&family=Paytone+One&family=Poppins:wght@500&family=Raleway:wght@300&family=Stick+No+Bills&display=swap');
+
 .card {
-  display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  width: 200px;
-  height: 300px;
-  border-radius: 5px;
-  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); */
-  /* box-shadow: 0 3px 15px -1px; */
-  box-shadow: 5px 5px grey;
+  width: 250px;
   padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
   margin: 1rem;
-  transition: all 0.3s ease-in-out;
-  /* background-color: #AED3E3; */
-  background-color: #f2f2f2;
-  padding-top: 10px;
-  margin-top: 30px;
+  transition: all 0.5s ease-in-out;
+  background-color: #D76F30;
 }
 
 .card:hover {
   transform: scale(1.05);
   background-color: #aed3e3;
-  /* background-color: #F9A81A; */
-  /* box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); */
+
   cursor: pointer;
   transform: scale(1.1);
   box-shadow: 0 3px 15px -1px;
-  font-size: 90%;
+  font-size: 99%;
+  transition: all 0.4s ease-in-out;
 }
 
-.card div:first-child {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-}
-
-.card div:nth-child(2) {
-  font-size: 14px;
-  color: #49516f;
-  /* color: red; */
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card div:last-child {
-  font-size: 16px;
-  font-weight: bold;
-  /* color: #e74c3c; */
-}
 
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 650px;
+  height: 0px;
   overflow: auto;
+  margin-left: 100px;
+  margin-right: 100px;
+  padding-top: 1.5rem;
+  /* background-color: red; */
+  /* border: #49516f 1px solid; */
+  border-radius: 1rem;
 }
 
 @media only screen and (min-width: 375px) and (max-width: 414px) {
   .container {
     height: 540px;
+    margin-left: 0;
+  margin-right: 0;
   }
 }
 @media only screen and (min-width: 390px) {
   .container {
     height: 700px;
+    margin-left: 0;
+  margin-right: 0;
   }
 }
 
 @media only screen and (min-width: 414px) {
   .container {
     height: 750px;
+    margin-left: 10rem;
+  margin-right: 10rem;
   }
 }
 
 @media only screen and (min-width: 390px) and (max-width: 414px) {
   .container {
     height: 770px;
+    margin-left: 0;
+  margin-right: 0;
   }
   .card {
     width: 210px;
+    margin-left: 0;
+  margin-right: 0;
   }
 }
 
 @media only screen and (min-width: 1000px) and (max-width: 1500px) {
   .container {
     height: 650px;
+    /* margin-left: 0;
+  margin-right: 0; */
   }
 }
 </style>
