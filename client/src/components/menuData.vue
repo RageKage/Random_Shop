@@ -8,20 +8,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="details">
-      <h3 class="name">{{item.name}}</h3>
-    <p class="price">${{item.price}}</p>
-    <p class="desc">
-     {{ item.description }}
-    </p>
-    <div class="controls">
-      <button @click="incrementQuantity" class="btn-add">+</button>
-      <span class="quantity">0</span>
-      <button @click="decrementQuantity" class="btn-remove">-</button>
-    </div>
-    <button @click="addToOrder" class="btn-order"> Order {{ itemsInCart }}</button>
-    </div> -->
-
     <div class="card-content">
       <h3 class="card-title">{{ item.name }}</h3>
       <p class="price">${{ item.price }}</p>

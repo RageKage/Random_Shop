@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <!-- class="card" -->
       <MenuData
-
         v-for="item in ItemsStore.data.menuItem"
         v-bind:key="item.id"
         :item="item"
