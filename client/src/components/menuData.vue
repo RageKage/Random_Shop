@@ -1,29 +1,39 @@
-<template >
+<template>
   <div class="card">
-    <div class="product-card">
-    <img :src="item.image" alt="product image" class="img">
-    <h2 >{{ item.name }}</h2>
-    <p>Price: ${{ item.price }}</p>
-    <p class="A">{{ item.description }}</p>
-  </div>
-
-    <!-- <div class="item-name">{{ item.name }}</div>
-    <div>{{ item.description }}</div>
-    <div>${{ item.price }}</div>
-    <div>{{ item.quantity }}</div> -->
-
-    <div class="contain">
-      <button @click="decrementQuantity" class="remove-button">
-        <span class="material-icons"> remove </span>
-      </button>
-      <button @click="incrementQuantity" class="add-button">
-        <span class="material-icons"> add </span>
-      </button>
+    <div class="card-image">
+      <img :src="item.image" alt="product image" />
+      <div class="image-container">
+        <div class="image-wrapper">
+          <div class="image-placeholder"></div>
+        </div>
+      </div>
     </div>
-    <div class="contain-Order">
-      <button @click="addToOrder" class="AddtoOrder">
-        <span class="material-icons" style=""> add_shopping_cart </span>
-        {{ itemsInCart }}
+    <!-- <div class="details">
+      <h3 class="name">{{item.name}}</h3>
+    <p class="price">${{item.price}}</p>
+    <p class="desc">
+     {{ item.description }}
+    </p>
+    <div class="controls">
+      <button @click="incrementQuantity" class="btn-add">+</button>
+      <span class="quantity">0</span>
+      <button @click="decrementQuantity" class="btn-remove">-</button>
+    </div>
+    <button @click="addToOrder" class="btn-order"> Order {{ itemsInCart }}</button>
+    </div> -->
+
+    <div class="card-content">
+      <h3 class="card-title">{{ item.name }}</h3>
+      <p class="price">${{ item.price }}</p>
+      <p class="card-desc">{{ item.description }}</p>
+      <div class="card-buttons">
+        <button @click="incrementQuantity" class="btn-add">+</button>
+        <button @click="decrementQuantity" class="btn-remove">-</button>
+      </div>
+    </div>
+    <div class="card-order">
+      <button @click="addToOrder" class="btn-order">
+        Order {{ itemsInCart }}
       </button>
     </div>
   </div>
@@ -46,7 +56,6 @@ import {
 import Swal from "sweetalert2";
 
 export default {
-  // emits: ["decrement-Quantity", "increment-Quantity", "addToSelected"],
   props: {
     item: {
       type: Object,
@@ -58,11 +67,10 @@ export default {
 
     let total = ref(props.item.quantity);
 
-    let count = ref(0); // !this doesn't really do anything
-
     let itemsInCart = ref(props.item.quantity);
 
     function incrementQuantity() {
+      // add quantity of item in cart
       // ! add a computed property to show them how much more they can add
       if (total.value >= 15) {
         return Swal.fire({
@@ -73,34 +81,31 @@ export default {
           icon: "info",
         });
       } else {
-        // console.log(15 - props.item.quantity)
         total.value++;
         itemsInCart.value++;
         props.item.quantity = total.value;
-        // console.log(total)
         emit("incrementQuantity", props.item.name, props.item.quantity); // this will emit the item name and quantity to the parent
       }
     }
 
     function decrementQuantity() {
+      // remove the quantity of the item
       if (total.value > 0) {
         total.value--;
         itemsInCart.value--;
         props.item.quantity = total.value;
-        // console.log(props.item.quantity)
       }
       emit("decrementQuantity", props.item.name, props.item.quantity);
-      // emit("addToSelected", props.item.name);
     }
 
     function addToOrder() {
-      // ! weird error when you add more then 15
+      // add item to order
       if (props.item.quantity <= 0) {
+        // if the item is zero then don't add it and reset it back to zero after the warning message
         total.value = 1;
         props.item.quantity = total.value;
         itemsInCart.value = total.value;
         emit("incrementQuantity", props.item.name, props.item.quantity); // emit it back to the database so it doesn't just remain zero
-        // console.log("hi");
         return Swal.fire({
           text:
             "Sorry, the quantity for " +
@@ -113,6 +118,7 @@ export default {
       }
 
       if (props.item.quantity >= 14) {
+        // put a limit on the quantity they can add for every item
         return Swal.fire({
           text: "The maximum you can order for " + props.item.name + " 15",
           icon: "error",
@@ -120,16 +126,11 @@ export default {
         });
       }
 
-      // console.log(props.item.name +'    ' +props.item.quantity)
-
       emit("addToSelected", props.item.name, props.item.quantity);
-      // console.log(props.item.name +'    ' +props.item.quantity)
 
       total.value = 1;
       props.item.quantity = total.value;
       itemsInCart.value = total.value;
-
-      // console.log(total.value + " " + props.item.quantity);
       emit("incrementQuantity", props.item.name, props.item.quantity);
       emit("decrementQuantity", props.item.name, props.item.quantity);
     }
@@ -139,7 +140,6 @@ export default {
       decrementQuantity,
       total,
       addToOrder,
-      count,
       ItemStore,
       itemsInCart,
     };
@@ -148,120 +148,121 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kalam&family=Paytone+One&family=Poppins:wght@500&family=Raleway:wght@300&family=Stick+No+Bills&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kalam&family=Paytone+One&family=Poppins:wght@500&family=Raleway:wght@300&family=Stick+No+Bills&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  overflow: hidden;
+  margin-bottom: 2rem;
 
+}
 
-.img {
+.card-image {
+  position: relative;
   height: 200px;
-  width: 200px;
+  background-color: #ddd;
 }
 
-.AddtoOrder {
-  cursor: pointer;
-  font-size: 0.9rem;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  box-shadow: 5px 5px grey;
-  color: rgb(255, 255, 255);
-  transition: all 0.3s ease-in-out;
-  background-color: #0077c8;
-  margin: 1rem;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  padding: 0.2rem 1.5rem 0.2rem 1.5rem;
-
-  font-family: "Paytone One", sans-serif;
-  color: white;
-  box-shadow: 5px 5px #fdf5df;
-}
-.AddtoOrder:hover {
-  cursor: pointer;
-  background-color: #2f9b2f;
-  padding: 0.2rem 1.5rem 0.2rem 1.5rem;
-  line-height: 20px;
-  transition: all 0.4s ease-in-out;
-  transform: scale(0.9);
-  box-shadow: 0 3px 15px -2px;
+.image-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.AddtoOrder:active {
-  transform: scale(0.9);
-  box-shadow: 0 3px 15px -2px;
+.image-wrapper {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 5px #ccc;
 }
 
-.card .add-button,
-.card .remove-button {
-  width: 40px;
-  height: 25px;
-  font-size: 18px;
-  border: none;
-  box-shadow: 2px 2px #fdf5df;;
-  color: white;
-  transition: all 0.3s ease-in-out;
-  background-color: #708090;
-  margin: 1rem;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 2rem;
-  line-height: 15px;
-
+.image-placeholder {
+  padding-top: 75%; /* 4:3 aspect ratio */
+  background-color: #ccc;
 }
 
-.card .add-button:active,
-.card .remove-button:active {
-  transform: scale(0.9);
-  box-shadow: 0 3px 15px -2px;
-}
-
-.card .add-button:hover {
-  background-color: #2f9bbf;
-  transform: translateY(-3px);
-  font-weight: bold;
-  text-align: center;
-  line-height: 15px;
-
-  transition: all 0.5s ease-in-out;
-}
-.card .remove-button:hover {
-  background-color: #9b2f2f;
-  transform: translateY(-3px);
-  font-weight: bold;
-  text-align: center;
-  line-height: 15px;
-
-  transition: all 0.5s ease-in-out;
-}
-
-
-.product-card img {
+img {
+  float: left;
+  /* width: 200px; */
   width: 100%;
-  border: 10px solid white;
-  border-radius: 1rem;
+  height: 200px;
+  background-size: cover;
 }
 
-.product-card h2 {
-  margin-top: 10px;
-  margin-bottom: 5px; 
-  font-size: 1.2em;
-
-  /* font-family: "Paytone One", sans-serif; */
-  color: white;
+.card-content {
+  padding: 1rem;
 }
 
-.product-card p {
-  margin-top: 5px;
-  font-size: 0.9em;
-  color: white;
+.card-title {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
 }
 
+.card-desc {
+  font-size: 1.25rem;
+  margin: 0 0 1rem;
+}
 
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.card-buttons button {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.card-order {
+  background-color: #eee;
+  padding: 1rem;
+}
+
+.btn-add,
+.btn-remove,
+.btn-order {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #d76f30;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-add:hover {
+  background-color: #a34c1f;
+}
+
+.btn-remove:hover {
+  background-color: #a34c1f;
+}
+
+.btn-order:hover {
+  background-color: #888;
+}
+@media (max-width: 768px) {
+  .card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 </style>

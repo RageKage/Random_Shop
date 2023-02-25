@@ -1,3 +1,4 @@
+
 <template>
   <div class="main-wrapper">
     <div class="panel-wrapper">
@@ -20,7 +21,9 @@
       </table>
       <!--  -->
       <!-- <div class="total-price">Total: ${{ totalPrice }}</div> -->
-    <span class="total-price"> <strong> Total: ${{ totalPrice }}</strong></span> 
+      <span class="total-price">
+        <strong> Total: ${{ totalPrice }}</strong></span
+      >
 
       <q-btn
         @click="confirmOrder(ItemStore.data.selectedItem)"
@@ -30,28 +33,9 @@
       </q-btn>
     </div>
 
-    <!--  <span class="total-price">Total: ${{ totalPrice }}</span>  -->
-
-    <!-- <div class="Confirm-header">
-      <q-btn
-        @click="confirmOrder(ItemStore.data.selectedItem)"
-        class="Confirm-Button"
-        label="Confirm Order"
-      >
-      </q-btn>
-    </div> -->
-
-    <!--       <q-btn
-        flat
-        @click="confirmOrder(ItemStore.data.selectedItem)"
-        class="Confirm-Button"
-        label="Confirm Order"
-      /> -->
-    <!-- <div class="panel-header">
-        <h2>Payment</h2>
-      </div> -->
   </div>
 </template>
+
 <script>
 import Vue from "vue";
 import Swal from "sweetalert2";
@@ -103,7 +87,8 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kalam&family=Paytone+One&family=Poppins:wght@500&family=Raleway:wght@300&family=Stick+No+Bills&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kalam&family=Paytone+One&family=Poppins:wght@500&family=Raleway:wght@300&family=Stick+No+Bills&display=swap");
+
 .main-wrapper {
   display: flex;
   flex-direction: column;
@@ -187,9 +172,7 @@ export default {
   border-bottom: 1px solid #ddd;
   padding: 20px;
   color: black;
-
   width: 80%;
-
   border-radius: 10px;
   margin: 10px 0;
   color: white;
@@ -253,33 +236,49 @@ tr {
     font-size: 15px;
   }
   .panel-wrapper {
-    height: 400px;
+    height: 520px;
     box-shadow: 10px 10px grey;
   }
 
   .Confirm-Button {
-    font-size: 12px;
+    height: 15px;
+    font-size: 10px;
+    margin-left: 4rem;
   }
 
-  .Confirm-header {
-    box-shadow: 10px 5px grey;
-  }
 
   .total-price {
     font-size: 1rem;
   }
 }
 
-/* @media only screen and (min-width: 390px) and (max-width: 414px) {
-  .panel-wrapper {
-    width: 90%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 10px 0;
-    background-color: #212529;
-    border-color: #32383e;
-    color: white;
-    overflow: hidden;
+
+@media only screen and (min-width: 428px) and (max-width: 428px)  {
+  .panel-header {
+    font-size: 1.8rem;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
   }
-} */
+  th {
+    font-size: 15px;
+  }
+  .panel-wrapper {
+    height: 520px;
+    box-shadow: 10px 10px grey;
+  }
+
+  .Confirm-Button {
+    height: 15px;
+    font-size: 10px;
+    margin-left: 4rem;
+  }
+
+
+  .total-price {
+    font-size: 1rem;
+  }
+}
+
+
 </style>

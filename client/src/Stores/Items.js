@@ -202,7 +202,6 @@ export const useItemStore = defineStore("ItemStore", () => {
         }
         return total.toFixed(2);
       });
-      // console.log(orderTotal);
 
       const orderLabel = `Order ${data.SaveOrders.length + 1}`;
       const newOrder = {

@@ -193,4 +193,19 @@ tr:hover {
 }
 
 }
+
+
+@media only screen and (min-width: 428px) and (max-width: 428px) {
+  .decrease-button {
+    border: none;
+    padding: 5px 5px;
+  }
+  
+  
+  .increase-button {
+    border: none;
+    padding: 5px 5px;
+}
+
+}
 </style>
