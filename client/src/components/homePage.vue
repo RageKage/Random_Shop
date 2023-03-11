@@ -61,10 +61,10 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  height: 650px;
+  height: 610px;
   overflow: auto;
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 1.5rem;
   border-radius: 1rem;
   flex-direction: row-reverse;

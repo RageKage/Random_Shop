@@ -2,19 +2,25 @@
   <tr>
     <td class="item-td-name">{{ item.name }}</td>
     <td class="item-td-quantity">
-
-      <button class="decrease-button" @click="decrementQuantity( item.name, item.quantity, )">
+      <button
+        class="decrease-button"
+        @click="decrementQuantity(item.name, item.quantity)"
+      >
         <span class="material-icons"> remove </span>
       </button>
 
       {{ item.quantity }}
-      <button class="increase-button" @click="incrementQuantity( item.name, item.quantity)">
+      <button
+        class="increase-button"
+        @click="incrementQuantity(item.name, item.quantity)"
+      >
         <span class="material-icons"> add </span>
       </button>
     </td>
     <td class="item-td-price">
-      ${{ calculateTotalPrice(item) }}
-     <br /><span class="price-label">${{ item.price }} for each</span>
+      ${{ calculateTotalPrice(item) }} <br /><span class="price-label"
+        >${{ item.price }} for each</span
+      >
     </td>
 
     <td class="item-td-remove">
@@ -51,11 +57,11 @@ export default {
     // const incrementQuantity = ItemStore.increaseQuantity(item.quantity, item)
 
     function decrementQuantity(item, quantity) {
-      ItemStore.SelectedDecreasing(quantity, item)
+      ItemStore.SelectedDecreasing(quantity, item);
     }
 
-    function incrementQuantity(item, quantity){
-      ItemStore.Selectedincrease(quantity, item)
+    function incrementQuantity(item, quantity) {
+      ItemStore.Selectedincrease(quantity, item);
     }
 
     function calculateTotalPrice(item) {
@@ -74,6 +80,9 @@ export default {
 </script>
 
 <style scoped>
+.A {
+
+}
 .remove-button {
   background-color: #0077c8;
   border: none;
@@ -118,18 +127,16 @@ td {
   width: auto;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  border-bottom: rgb(112, 128, 144 , 50%)  solid;
+  border-bottom: rgb(112, 128, 144, 50%) solid;
 }
 
 tr:hover {
-
   box-shadow: 5px 10px 10px 10px rgb(0 0 0 / 10%);
 
   font-size: 15px;
   border-radius: 1rem;
   background-color: rgb(241 245 249);
   transition: all 0.3s ease-in-out;
-
 }
 
 .item-td-name {
@@ -148,7 +155,8 @@ tr:hover {
   text-align: center;
 }
 
-.decrease-button, .increase-button {
+.decrease-button,
+.increase-button {
   decoration: none;
   border: none;
   padding: 5px 10px;
@@ -185,27 +193,22 @@ tr:hover {
     border: none;
     padding: 5px 5px;
   }
-  
-  
+
   .increase-button {
     border: none;
     padding: 5px 5px;
+  }
 }
-
-}
-
 
 @media only screen and (min-width: 428px) and (max-width: 428px) {
   .decrease-button {
     border: none;
     padding: 5px 5px;
   }
-  
-  
+
   .increase-button {
     border: none;
     padding: 5px 5px;
-}
-
+  }
 }
 </style>

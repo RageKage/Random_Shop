@@ -32,8 +32,8 @@
         <div class="order-number"></div>
         <div class="order-total">Total: ${{ order.total }}</div>
       </div>
-      <div>q</div>
     </div>
+    <div><h1></h1></div>
   </div>
 </template>
 
@@ -76,11 +76,13 @@ export default {
   margin: 0 auto;
   max-width: 600px;
   padding: 2rem;
+      height: 610px;
+    overflow: auto;
 }
 
 
 h1 {
-  font-size: 6rem;
+  font-size: 4rem;
   font-weight: 300;
   line-height: 6rem;
   letter-spacing: -0.01562em;
