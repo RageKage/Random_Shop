@@ -32,6 +32,7 @@
         <div class="order-number"></div>
         <div class="order-total">Total: ${{ order.total }}</div>
       </div>
+      <div>q</div>
     </div>
   </div>
 </template>
