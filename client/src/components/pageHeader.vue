@@ -63,60 +63,6 @@ body {
   text-align: center;
   background-color: #172d13;
 }
-/* .nav-link {
-  text-decoration: none;
-  margin: 1rem;
-  padding: 0 20px;
-  width: 40px;
-  height: 25px;
-  font-size: 18px;
-  border: none;
-  box-shadow: 5px 5px #fdf5df;
-  transition: all 0.7s ease-in-out;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 2rem;
-  background-color: #6bb77b;
-}
-.nav-link:hover {
-  cursor: pointer;
-  font-size: 0.9rem;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  color: #fff;
-  transition: all 0.4s ease-in-out;
-  background-color: #0077c8;
-  margin: 1rem;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  padding: 0.2rem 1.5rem 0.2rem 1.5rem;
-  font-family: "Paytone One", sans-serif;
-  color: #fff;
-  box-shadow: 0 -50px 15px;
-  transform: scale(0.9);
-  box-shadow: 5px 5px #fdf5df;
-}
-.nav-link:active {
-  transform: scale(0.9);
-  box-shadow: 0 3px 15px -2px;
-  transition: all 0.4s ease-in-out;
-}
-:root {
-  --secondary-color: #c1632b;
-  --text-color: #ffffff;
-}
-.navs {
-  background-color: var(--primary-color);
-  height: 70px;
-  border-radius: 1rem;
-  padding-top: 20px;
-}
-.nav-link {
-  color: var(--text-color);
-} */
 
 header {
   background-color: #1f1f1f;
@@ -136,20 +82,19 @@ header {
 
   /*  */
 
-    /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
-  height: -40px; /* adjust the height as needed */
+  height: -40px; 
 
-  z-index: 999; /* ensure that the header appears on top of other elements */
+  z-index: 999;
 }
 
 .header-h1 {
   margin: 0;
-  font-size: 32px;
+  font-size: 29px;
   font-weight: normal;
-  line-height: 3rem;
+  line-height: 2rem;
   letter-spacing: -0.01562em;
 }
 

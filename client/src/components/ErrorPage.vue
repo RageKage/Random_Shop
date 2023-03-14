@@ -12,16 +12,18 @@
 .page-not-found {
   /* ! make it so it takes over the whole page and */
   text-align: center;
-  color: #43a6c6;
+  color: #fff;
   top: 50%;
   left: 50%;
   height: auto;
   width: auto;
-  font: 75px/75px Monoton, cursive;
+  font: 1em sans-serif;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: bold;
-  text-shadow: 0 0 80px lightblue, 0 0 30px grey, 0 0 6px green;
+  /* text-shadow: 0 0 80px lightblue, 0 0 30px grey, 0 0 6px green; */
+
+
 }
 </style>

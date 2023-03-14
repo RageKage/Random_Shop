@@ -13,14 +13,15 @@
       <p class="price">${{ item.price }}</p>
       <p class="card-desc">{{ item.description }}</p>
       <div class="card-buttons">
-        <button @click="incrementQuantity" class="btn-add">+</button>
-        <button @click="decrementQuantity" class="btn-remove">-</button>
+        <button @click="incrementQuantity" class="increase-button">+</button>
+        <button @click="decrementQuantity" class="decrease-button">-</button>
       </div>
     </div>
     <div class="card-order">
       <button @click="addToOrder" class="btn-order">
         Order {{ itemsInCart }}
       </button>
+      <q-tooltip v-if="addToOrder" class="bg-accent">Add to Checkout</q-tooltip>
     </div>
   </div>
 </template>
@@ -111,7 +112,6 @@ export default {
           confirmButtonText: "Okay",
         });
       }
-
       emit("addToSelected", props.item.name, props.item.quantity);
 
       total.value = 1;
@@ -147,7 +147,6 @@ export default {
   border: 2px solid #ccc;
   overflow: hidden;
   margin-bottom: 2rem;
-
 }
 
 .card-image {
@@ -217,12 +216,48 @@ img {
   padding: 1rem;
 }
 
-.btn-add,
-.btn-remove,
+.decrease-button,
+.increase-button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #d76f30;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.decrease-button:hover {
+  background-color: #9b2f2f;
+  color: #fff;
+  transition: all 0.4s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transform: scale(0.9);
+  box-shadow: 0 3px 15px -2px #9b2f2f;
+}
+.increase-button:hover {
+  background-color: #2f9bbf;
+  color: #fff;
+  transition: all 0.4s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transform: scale(0.9);
+  box-shadow: 0 3px 15px -2px #2f9bbf;
+}
+
 .btn-order {
   display: block;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   font-size: 1.25rem;
   font-weight: bold;
   text-align: center;
@@ -234,21 +269,24 @@ img {
   transition: background-color 0.2s;
 }
 
-.btn-add:hover {
-  background-color: #a34c1f;
-}
-
-.btn-remove:hover {
-  background-color: #a34c1f;
-}
-
 .btn-order:hover {
-  background-color: #888;
+  /* The Css for the add to order button*/
+  /* background-color: #888; */
+  cursor: pointer;
+  background-color: #399339;
+  transition: all 0.4s ease-in-out;
+  transform: scale(0.95);
 }
+
 @media (max-width: 768px) {
   .card {
     margin-left: 0;
     margin-right: 0;
   }
 }
+
+/* 
+
+
+*/
 </style>

@@ -48,8 +48,8 @@
         </div>
         <div class="info">
           <span class="total-price">
-            <strong> Total: ${{ totalPrice }}</strong></span
-          >
+            <strong>Total: ${{ totalPrice }}</strong>
+          </span>
 
           <q-btn
             @click="confirmOrder(ItemStore.data.selectedItem)"
@@ -73,12 +73,12 @@ import CheckoutTableRows from "./CheckoutTableRows.vue";
 // TODO: for future update maybe add a previous order List
 // TODO: add a new button that will decrease the quantity and that should update the price as well
 
-import {
-  computed,
-  onMounted,
-} from "vue";
+import { computed, onMounted } from "vue";
 import { useItemStore } from "../Stores/Items";
 // TODO: ! add a button that will remove all the items in cart
+// TODO: ! add a fake tax 
+// TODO: add a payment method before the order is confirmed
+
 export default {
   components: { CheckoutTableRows },
   setup() {
@@ -91,12 +91,21 @@ export default {
       for (const item of ItemStore.data.selectedItem) {
         total += item.price * item.quantity;
       }
+
       return total.toFixed(2);
     });
 
+    // const taxRate = 0.07;
+    // const subtotal = totalPrice.value;
+    // const tax = subtotal * taxRate;
+    // const total = subtotal + tax;
+
+
+
     const confirmOrder = ItemStore.Notify;
 
-    function decrementQuantity(item, quantity) { // increases the quantity
+    function decrementQuantity(item, quantity) {
+      // increases the quantity
       ItemStore.SelectedDecreasing(quantity, item);
     }
 
@@ -110,6 +119,7 @@ export default {
 
     onMounted(() => {
       ItemStore;
+
     });
 
     return {
@@ -315,17 +325,18 @@ export default {
   box-shadow: 0 3px 15px -2px #2f9bbf;
 }
 
-.info { /* This the total and confirm button div */
-    padding: 10px;
-    box-sizing: border-box;
-    max-width: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 10rem;
-    padding-left: 10rem;
-    align-content: center;
-    flex-wrap: wrap;
+.info {
+  /* This the total and confirm button div */
+  padding: 10px;
+  box-sizing: border-box;
+  max-width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding-right: 10rem;
+    padding-left: 10rem; */
+  align-content: center;
+  flex-wrap: wrap;
 }
 @media only screen and (min-width: 375px) and (max-width: 375px) {
   .panel-header {

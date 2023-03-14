@@ -9,6 +9,9 @@ import {
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 
+
+// TODO issue at the checkout. it adds items to order history even if the item is at zero quantity
+
 export const useItemStore = defineStore("ItemStore", () => {
   const service = useService();
   function useService() {
